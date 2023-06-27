@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Sketch 6 - Rule Painting</title>
+	<link rel="stylesheet" type="text/css" href="style.css" />
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">	
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.6.0/p5.min.js"></script>
+	<script src="https://unpkg.com/p5.js-svg@1.3.1"></script>
+
+    <!-- <script src="p5.sound.min.js"></script> -->
+</head>
+<body>
+
+	<div class="top-bar">
+
+				<div class="top-bar-controls-container justify-content-between align-items-center">
+
+						<div class="left-menu d-flex align-items-center">
+					 		<div id="view-mode-container" class="btn-group full-height border-end" role="group" aria-label="View Mode Selection ">
+					 			<div class="value-mode-container mode-container d-flex justify-content-stretch">
+									<input type="radio" class=" btn-check viewModeSelection" name="options" value="valueMode" id="valueMode" autocomplete="off" checked>
+									<label class="btn menu-item px-4 active"  for="valueMode">Values</label>
+					 			</div>
+					 			<div class="rule-mode-container mode-container d-flex justify-content-stretch">
+					 				<input type="radio" class=" btn-check viewModeSelection" name="options" value="ruleMode" id="ruleMode" autocomplete="off">
+									<label class="btn menu-item px-4" for="ruleMode">Rules</label>
+					 			</div>
+							</div>
+							<div id="play-controls" class="top-bar-control d-flex align-items-center full-height border-end gap-2 px-3 p-2">
+									<a class="play-container rounded-pill px-2 py-1 pause menu-item" onclick="playPause(this)" href="#" data-bs-toggle="tooltip" data-bs-custom-class="keycode-container tooltip-keycode" data-bs-html="true" data-bs-title='
+										<div class="keycode-container d-flex align-items-baseline gap-1 mb-2"> 
+											<div class="keycode"> <span class="keycode-icon"><i class="bi bi-shift"></i></span><span class="operator">+</span><span class="keycode-icon"><small>SPACE</small></span> 
+										</div>
+						      </div>'
+						      data-bs-placement="bottom">
+										<i class="bi bi-play"></i>Play</a>
+									<a class="step-container rounded-pill px-2 py-1 step menu-item" onclick="step(this)" href="#"data-bs-toggle="tooltip" data-bs-custom-class="keycode-container tooltip-keycode" data-bs-html="true" data-bs-title='
+										<div class="keycode-container d-flex align-items-baseline gap-1 mb-2"> 
+											<div class="keycode"><span class="keycode-icon"><small>SPACE</small></span> 
+										</div>
+						      </div>'
+						      data-bs-placement="bottom"><i class="bi bi-skip-end"></i>Step</a>
+							</div>
+						</div>
+
+						<div class="right-menu d-flex">
+							<div class="dropdown right-menu-item">
+							  <button type="button" class="btn full-height border-start dropdown-toggle menu-item" data-bs-toggle="dropdown" aria-expanded="false" data-bs-auto-close="outside">
+							    Canvas
+							  </button>
+							  <form class="dropdown-menu p-4" onsubmit="submitCanvasSettings(event);return false">
+							    <div class="mb-3">
+							      <label for="canvasWidth" class="form-label">Width</label>
+							      <input type="number" class="form-control" name="canvasWidth" id="canvasWidth" value="600">
+							    </div>
+							    <div class="mb-3">
+							      <label for="canvasHeight" class="form-label">Height</label>
+							      <input type="number" class="form-control" name="canvasHeight" id="canvasHeight" value="400">
+							    </div>
+							    <div class="mb-3">
+							      <label for="cellWidth" class="form-label">Cell Width</label>
+							      <input type="number" class="form-control" name="cellWidth" id="cellWidth" value="4">
+							    </div>
+						   		<div class="mb-3">
+							      <label for="cellHeight" class="form-label">Cell Height</label>
+							      <input type="number" class="form-control" name="cellHeight" id="cellHeight" value="4">
+							    </div>
+							    <button type="submit" class="btn btn-primary">Create Canvas</button>
+							  </form>
+							</div>
+							<div class="dropdown right-menu-item">
+							  <button type="button" class="btn full-height border-start dropdown-toggle menu-item" data-bs-toggle="dropdown" aria-expanded="false" data-bs-auto-close="outside">
+							    File
+							  </button>
+							  <form class="dropdown-menu p-4">
+							    <div id="save-controls" class="top-bar-control">
+										<div class="input-group">
+											<select class="form-select file-type-selection" aria-label="Select File Type">
+											  <option value="png" selected>PNG</option>
+											  <option value="jpg">JPG</option>
+											  <option value="svg">SVG</option>
+											  <option value="json">JSON</option>
+											</select>
+										  <button class="save-file btn btn-outline-secondary" type="button">Save File</button>
+										</div>
+									</div>
+									<div id="load-controls" class="top-bar-control">
+										<div class="mb-3">
+										  <label for="formFileSm" class="form-label">Load JSON File</label>
+										  <input class="form-control form-control-sm" id="loadJSON" type="file">
+										</div>
+									</div>
+							  </form>
+							</div>
+							<div class="right-menu-item">
+								<a class="btn full-height border-start menu-item" data-bs-toggle="offcanvas" href="#offcanvasinfo" role="button" aria-controls="offcanvasinfo"> info </a>
+							</div>
+						</div>
+				</div>	
+	</div>
+
+	<div class="workspace-container">
+			<div class="sidebar-container">
+				<div class="sidebar p-4"> 
+				 		<div id="sidebar-controls">
+							<div id="brush-size-selection" class="top-bar-control">
+								<label for="brushSizeSelection" class="form-label"><h4 class="ui-type ui-label"> BRUSH SIZE </h4> </label>
+								<div class="input-group mb-3 border-0 gap-2">
+									<input name="brushSizeSelection" type="range" class="form-control form-range border-0" min="1" max="30" step="1" value="6" id="brushSizeSelection">
+									<input type="text" class="form-control border-0" id="brushSizeSelectionNum" value="">
+								</div>
+							</div>
+				 			<div id="brush-selection">
+							 	<section id="ruleset-brushes">
+								 	<h4 class="ui-type ui-label">RULESET BRUSHES</h4>
+								 	<ul id="rule-brushes-container" class="list-group">
+								 		<!-- JS VALUE BRUSHES -->
+									</ul>
+									<div class="rule-brushes-footer">
+								 		<!-- footer... -->
+									</div>
+						 		</section>
+							 	<section id="value-brushes">
+								 	<h4 class="ui-type ui-label">VALUE BRUSHES</h4>
+								 	<ul id="value-brushes-container" class="list-group">
+								 		<!-- JS VALUE BRUSHES -->
+									</ul>
+									<div class="value-brushes-footer">
+								 		<!-- footer... -->
+									</div>					 		
+								</section>
+						 	</div>
+						</div>
+			  </div>
+			  <div id="editor-panel" class="p-3 shadow">
+			  	<div class="editor-panel-inner">
+			  		<!-- JS CONTENT -->
+			  	</div>
+			  </div>
+			</div>
+
+
+			<div id="workspace">
+		 		<!-- P5 CANVAS HERE -->
+		  </div>
+			<div id="temp-workspace" style="position: absolute; z-index: 1000;">
+		 		<!-- P5 CANVAS HERE -->
+		  </div>
+
+
+	</div>
+
+
+	<div class="info">
+		<div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasinfo" aria-labelledby="offcanvasinfo">
+		  <div class="offcanvas-header">
+		    <p class="offcanvas-title" id="offcanvasExampleLabel">info</p>
+		    <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+		  </div>
+		  <div class="offcanvas-body">
+		    <div class="main-body">
+		    	<img style="width: 100%; mix-blend-mode: darken;" class="mt-2 mb-4" src="assets/logo/ruleset-painter-logo.gif">
+					<p> The <i>Ruleset Painting Tool</i> exists as an accessible method of exploring the way decentralized systems interact and compound. Specifically, this tool allows the user to design and arrange different <a href="https://en.wikipedia.org/wiki/Cellular_automaton">cellular automata</a> — systems of computation where a group of entities each follow simple rules, but collectively exhibit complex behavior. The interface aims to create a real-time environment for playing/editing/drawing with these simple systems in the browser. </p>
+
+					<h3>How It Works</h3>
+
+						<p>
+							<ul>
+								<li>The canvas consists of a 2D grid of cells.</li>
+						 		<li>Each cell is assigned a binary value: BLACK or WHITE. These values can be changed by the user.</li>
+								<li>Each cell has its own ruleset that is applied during each “step” or “frame” in time.** Each cell’s ruleset determines what the next state of that cell will be. These rules can be changed by the user.</li>
+								<li>Every cell’s ruleset is applied concurrently across the grid.</li>
+							</ul>
+						</p>
+
+					<h3>More about Cellular Automata</h3>
+
+					<p>A cellular automata represents a class of models that aim to simulate complex dynamical systems using simple local rules. Cellular automata are discrete mathematical models that consist of a grid of cells, each of which can be in one of a finite number of states. The cells evolve over discrete time steps according to a set of local rules, typically based on the states of their neighboring cells. This leads to emergent global behavior from the interactions of the individual cells.</p>
+
+		    	
+		    </div>
+		    
+		  </div>
+		</div>
+	</div>
+
+
+		
+		<div class="bottom-right position-fixed bottom-0 end-0 p-3">
+
+			<div class="toast-container">
+
+			  <div id="liveToast" class="toast mb-3 bg-light" role="alert" aria-live="assertive" aria-atomic="true">
+			    <div class="toast-header">
+			      <i class="fs-6 bi bi-keyboard me-2" ></i>
+			      <strong class="me-auto">Keycodes</strong>
+			      <!-- <small>11 mins ago</small> -->
+			      <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+			    </div>
+			    <div class="toast-body">
+			      <div class="keycode-container d-flex align-items-baseline gap-1 mb-2">
+			      	<div class="keycode">
+			      		<span class="keycode-icon"><small>SPACE</small></span>
+			      	</div>
+			      	<div class="dotted-seperator"></div>
+			      	<div class="keycode-annotation d-flex">
+			      		<p class="m-0">Step Forward</p>
+			      	</div>
+			      </div>
+			      <div class="keycode-container d-flex align-items-baseline gap-1 mb-2">
+			      	<div class="keycode">
+			      		<span class="keycode-icon"><i class="bi bi-shift"></i></span><span class="operator">+</span><span class="keycode-icon"><small>SPACE</small></span>
+			      	</div>
+			      	<div class="dotted-seperator"></div>
+			      	<div class="keycode-annotation d-flex">
+			      		<p class="m-0">Play</p>
+			      	</div>
+			      </div>
+			      <div class="keycode-container  d-flex align-items-baseline gap-1 mb-2">
+			      	<div class="keycode">
+			      		<span class="keycode-icon"><small>}</small></span><span class="operator">or</span><span class="keycode-icon"><small>]</small></span>
+			      	</div>
+			      	<div class="dotted-seperator"></div>
+			      	<div class="keycode-annotation d-flex">
+			      		<p class="m-0">Increase Brush Size</p>
+			      	</div>			      </div>
+			      <div class="keycode-container  d-flex align-items-baseline gap-1 mb-2">
+			      	<div class="keycode">
+			      		<span class="keycode-icon"><small>{</small></span> <span class="operator">or</span> <span class="keycode-icon"><small>[</small></span>
+			      	</div>
+			      	<div class="dotted-seperator"></div>
+			      	<div class="keycode-annotation d-flex">
+			      		<p class="m-0">Decrease Brush Size</p>
+			      	</div>
+			      </div>
+			      <div class="keycode-container  d-flex align-items-baseline gap-1 mb-2">
+			      	<div class="keycode">
+			      		<span class="keycode-icon"><small>X</small></span>
+			      	</div>
+			      	<div class="dotted-seperator"></div>
+			      	<div class="keycode-annotation d-flex">
+			      		<p class="m-0">Toggle View Mode</p>
+			      	</div>
+			      </div>
+			      <div class="keycode-container d-flex align-items-baseline gap-1 ">
+			      	<div class="keycode">
+			      		<span class="keycode-icon"><small>ESC</small></span>
+			      	</div>
+			      	<div class="dotted-seperator"></div>
+			      	<div class="keycode-annotation d-flex">
+			      		<p class="m-0">Clear Canvas</p>
+			      	</div>
+			      </div>
+			    </div>
+			  </div>
+			</div>
+			<div class="d-flex gap-2 ms-auto float-end align-items-end">
+				<div id="tooltip-container" class="ui-controls-container d-inline-block">
+						<div class="px-2 bg-light d-flex align-items-center justify-content-center">
+							<div class="form-check form-switch d-flex gap-1 align-items-center">
+							  <input style="margin-bottom: 2px; " onclick="toggleTooltips();" class="form-check-input" type="checkbox" id="flexSwitchCheckChecked">
+							  <label style="line-height: 32px; color: var(--bs-body-text); text-decoration: none;" class="form-check-label ms-1" for="flexSwitchCheckChecked">Tooltips</label>
+							</div>
+						</div>
+				</div>
+				<div id="keycode-container" class="ui-controls-container d-inline-block ">
+						<a class="btn bg-light m-0 p-0 pe-1 d-flex align-items-center justify-content-center" id="liveToastBtn"><i style="width: 30px; height: 30px; text-align: center;" class="bi bi-keyboard "></i><span>Keys</span></a>
+				</div>
+			</div>
+		</div>
+
+
+
+</body>
+	
+<script src="script.js"></script>
+<script src="editor.js"></script>
+
+
+</html>
