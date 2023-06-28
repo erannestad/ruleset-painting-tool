@@ -13,21 +13,36 @@
 
     <!-- <script src="p5.sound.min.js"></script> -->
 </head>
+
+
+
 <body>
 
+	<div class="media-restriction-container">
+		<div style="width: 100%; height: 100%" class="d-flex flex-column justify-content-center align-items-center gap-4">
+		    <img style="width: 100%; filter: invert(1); mix-blend-mode: lighten;" class="p-4" src="assets/logo/ruleset-painter-logo.gif">
+				<h3 class="ui-type text-light">Please Use a Larger Viewport</h3>
+		</div>
+	</div>
 	<div class="top-bar">
 
 				<div class="top-bar-controls-container justify-content-between align-items-center">
 
 						<div class="left-menu d-flex align-items-center">
 					 		<div id="view-mode-container" class="btn-group full-height border-end" role="group" aria-label="View Mode Selection ">
-					 			<div class="value-mode-container mode-container d-flex justify-content-stretch">
-									<input type="radio" class=" btn-check viewModeSelection" name="options" value="valueMode" id="valueMode" autocomplete="off" checked>
+					 			<!-- <div class="value-mode-container mode-container d-flex justify-content-stretch">
+									<input type="radio" class=" btn-check viewModeSelection" name="options" value="valueMode" id="valueMode" onclick="loadViewMode(event)">
 									<label class="btn menu-item px-4 active"  for="valueMode">Values</label>
 					 			</div>
 					 			<div class="rule-mode-container mode-container d-flex justify-content-stretch">
-					 				<input type="radio" class=" btn-check viewModeSelection" name="options" value="ruleMode" id="ruleMode" autocomplete="off">
+					 				<input type="radio" class=" btn-check viewModeSelection" name="options" value="ruleMode" id="ruleMode" onclick="loadViewMode(event)">
 									<label class="btn menu-item px-4" for="ruleMode">Rules</label>
+					 			</div> -->
+								<div class="value-mode-container mode-container d-flex justify-content-stretch">
+									<div class="viewModeSelection btn menu-item px-4" value="valueMode" id="valueMode" onclick="toggleViewMode('valueMode')">Values</div>
+					 			</div>
+					 			<div class="rule-mode-container mode-container d-flex justify-content-stretch">
+									<div class="viewModeSelection btn menu-item px-4" value="ruleMode" id="ruleMode" onclick="toggleViewMode('ruleMode')">Rules</div>
 					 			</div>
 							</div>
 							<div id="play-controls" class="top-bar-control d-flex align-items-center full-height border-end gap-2 px-3 p-2">
@@ -115,7 +130,7 @@
 								</div>
 							</div>
 				 			<div id="brush-selection">
-							 	<section id="ruleset-brushes">
+							 	<section id="ruleset-brushes" class="mt-4">
 								 	<h4 class="ui-type ui-label">RULESET BRUSHES</h4>
 								 	<ul id="rule-brushes-container" class="list-group">
 								 		<!-- JS VALUE BRUSHES -->
@@ -124,7 +139,7 @@
 								 		<!-- footer... -->
 									</div>
 						 		</section>
-							 	<section id="value-brushes">
+							 	<section id="value-brushes" class="mt-4">
 								 	<h4 class="ui-type ui-label">VALUE BRUSHES</h4>
 								 	<ul id="value-brushes-container" class="list-group">
 								 		<!-- JS VALUE BRUSHES -->

@@ -17,23 +17,30 @@ var sidebar = document.querySelector('.sidebar') // editor panel for burshes
 // Key Controls
 document.addEventListener('keydown', function (evt) {
   var isShift = !!evt.shiftKey;
-  console.log(isShift)
+	console.log(isShift)
   if ((evt.keyCode === myp5.RIGHT_ARROW) || (evt.keyCode === 32) && (!isShift)) { // space or right arrow
-    console.log('SPACEBAR')
-    evt.preventDefault();
-    step();
-  } else if (evt.keyCode === myp5.UP_ARROW) {
-    myp5.init();
+  	if ( document.activeElement.classList.contains('blacklist-spacebar') ) return console.log('default spacebar')  // check if active element prevents custom spacebar function
+	    console.log('SPACEBAR')
+	    evt.preventDefault();
+	    step();
+  } else if (evt.keyCode === 27) { // ESCAPE
+    	myp5.init();
   } if ( ((evt.keyCode === myp5.SHIFT) && (evt.keyCode === 221)) || (evt.keyCode === 221) ) { // right bracket
-    loadSize({elem: document.querySelector('#brush-size-selection input'), type: "", modifier: 1});
+    	loadSize({elem: document.querySelector('#brush-size-selection input'), type: "", modifier: 1});
   } if ( ((evt.keyCode === myp5.SHIFT) && (evt.keyCode === 219)) || (evt.keyCode === 219) ) { // right bracket
-    loadSize({elem: document.querySelector('#brush-size-selection input'), type: "", modifier: -1});
+    	loadSize({elem: document.querySelector('#brush-size-selection input'), type: "", modifier: -1});
+  } if ( evt.keyCode === 88 ) { // X key
+    	for (i in viewModeSelectors) {
+    		if (!viewModeSelectors[i].classList.contains('active')) {
+	    		viewModeSelectors[i].click(); // triggers loadViewMode on clicked element
+	    		break
+	    	}
+    	}
   } if ((isShift) && (evt.keyCode === 32)) { // CMD + SPACE
+  	  if ( document.activeElement.classList.contains('blacklist-spacebar') ) return console.log('default spacebar')  // check if active element prevents custom spacebar function
       evt.preventDefault();
       playContainer = document.querySelector('#play-controls .play-container');
-      // playPause(playContainer);
       playContainer.click();
-      console.log('sricpt')
   }
 });
 
@@ -42,26 +49,33 @@ document.addEventListener('keydown', function (evt) {
 //        VIEW MODE           //
 ////////////////////////////////
 
+viewModeSelectors.forEach(selector => { // for each selector
+		if ( controls.state.editor.viewMode == selector.getAttribute('value') ) { 
+			selector.classList.add('active')
+  	} else {
+  		selector.classList.remove('active')
+  	}
+	});
+
 for (let i=0; i < viewModeSelectors.length; i++) {
-	// console.log(viewModeSelectors[i]);
-	viewModeSelectors[i].addEventListener("click", loadViewMode);
 	if (viewModeSelectors[i].checked) {
 		controls.state.editor.viewMode = viewModeSelectors[i].value;
 	}
 }
 
-function loadViewMode(event) {
-  console.log('View Mode: ' + event.target.value);
-  controls.state.editor.viewMode = event.target.value;
+function toggleViewMode(targetMode) {
+	console.log('RUNNING FUNCTION')
+	viewModeSelectors.forEach(selector => { // for each selector
+		if (targetMode == selector.getAttribute('value')) { 
+			console.log(`active: ${selector.getAttribute('value')} `)
+			selector.classList.add('active')
+  	} else {
+  		selector.classList.remove('active')
+  	}
+	});
+  console.log('View Mode: ' + targetMode);
+  controls.state.editor.viewMode = targetMode;
 	myp5.stepForward('initialize');
-  console.log(controls.state.editor);
-  if (event.target.value == 'ruleMode'){
-	  document.querySelector('.rule-mode-container label').classList.add('active')
-		document.querySelector('.value-mode-container label').classList.remove('active')
-  } else if (event.target.value == 'valueMode') {
-	  document.querySelector('.rule-mode-container label').classList.remove('active')
-		document.querySelector('.value-mode-container label').classList.add('active')
-  }
 }
 
 
@@ -169,7 +183,7 @@ var createBrushes = function(type, container, brushesSelectionPanel) {
 	    		innerHTML: `<div class="d-flex align-items-center">
 		    								<div class="brush-main d-flex align-items-center justify-content-left" style="pointer-events:none;">
 										    	<div  class="preview ratio m-1 ratio-1x1 rounded" style="background-color: hsl(${brushesSelectionPanel[i].hue}, 45%, 45%); background-image: url('${brushesSelectionPanel[i].preview}')"></div>
-										      <h3 class="m-0 mx-2 ui-type">${brushesSelectionPanel[i].label}</h3>
+										      <h3 class="brush-label m-0 ms-2 text-nowrap ui-type">${brushesSelectionPanel[i].label}</h3>
 										    </div>
 										    <div class="brush-settings d-flex gap-1 border-start align-items-center justify-content-center" data-bs-toggle="tooltip" data-bs-title="${ type.charAt(0).toUpperCase() + type.slice(1) } Settings" data-bs-placement="right">
 										    	${ type == 'rule' ? '<div type="button" id="'+type+'-settings-'+brushesSelectionPanel[i].id+'" data-brushid = "'+brushesSelectionPanel[i].id+'" brushid = "'+brushesSelectionPanel[i].id+'" class="btn py-1 px-2"> <i class="bi bi-braces" style="font-size: 1rem;"></i> </div>' : ''}
@@ -367,12 +381,45 @@ var addBrush = function(type, brushPosition) {
 		setDefaultBrush("rule", controls.rulesets, ruleBrushesDOM);
 }
 
+
+// var brush = Object.assign(
+// 		    document.createElement('a'), { 
+// 		    	id: brushesSelectionPanel[i].id,
+// 		    	rulesetID : brushesSelectionPanel[i].id,
+// 		    	type: type,
+// 		    	value: brushesSelectionPanel[i].value,
+// 		    	href: "#",
+// 		    	classList: `brush ${type} p-0 list-group-item list-group-item-action ${brushesSelectionPanel[i].default ? 'active' : ''}` ,
+// 	    		innerHTML: `<div class="d-flex align-items-center">
+// 		    								<div class="brush-main d-flex align-items-center justify-content-left" style="pointer-events:none;">
+// 										    	<div  class="preview ratio m-1 ratio-1x1 rounded" style="background-color: hsl(${brushesSelectionPanel[i].hue}, 45%, 45%); background-image: url('${brushesSelectionPanel[i].preview}')"></div>
+// 										      <h3 class="brush-label m-0 ms-2 text-nowrap ui-type">${brushesSelectionPanel[i].label}</h3>
+// 										    </div>
+// 										    <div class="brush-settings d-flex gap-1 border-start align-items-center justify-content-center" data-bs-toggle="tooltip" data-bs-title="${ type.charAt(0).toUpperCase() + type.slice(1) } Settings" data-bs-placement="right">
+// 										    	${ type == 'rule' ? '<div type="button" id="'+type+'-settings-'+brushesSelectionPanel[i].id+'" data-brushid = "'+brushesSelectionPanel[i].id+'" brushid = "'+brushesSelectionPanel[i].id+'" class="btn py-1 px-2"> <i class="bi bi-braces" style="font-size: 1rem;"></i> </div>' : ''}
+// 										    	${ type == 'value' ? '<div type="button" id="'+type+'-settings-'+brushesSelectionPanel[i].id+'" data-brushid = "'+brushesSelectionPanel[i].id+'" data-type="' + type + '" brushid = "'+brushesSelectionPanel[i].id+'" class="btn py-1 px-2"> <i class="bi bi-pencil-fill" style="font-size: 1rem;"></i> </div>' : ''}
+// 										    </div>
+// 									    </div>
+// 									    `
+// 		    }
+// 		  )
+
+
+
 var addRuleButton = Object.assign(
 	    document.createElement('div'), { 
-    		innerHTML: `<div type="button" onclick="addBrush('rule','push')" class="add-rule btn" data-bs-html="true" data-bs-toggle="tooltip" data-bs-title="New Brush" data-bs-placement="right" > 
-							    		<i class="bi bi-plus-circle" style="font-size: 1rem;">
-							    		</i>
-						    		</div>` 
+		    classList: `p-0 list-group-item list-group-item-action add-brush-container dashed-gradient` ,
+    		innerHTML: `<div class="d-flex align-items-center data-bs-html="true" data-bs-toggle="tooltip" data-bs-title="Create New Brush" data-bs-placement="right" onclick="addBrush('rule','push')">
+							    		<div class="brush-main d-flex align-items-center justify-content-left" style="pointer-events:none;">
+
+															<div class="preview m-1 d-flex align-items-center justify-content-center">
+																<i class="bi bi-plus-circle" style="font-size: 1rem;"></i>
+															</div>
+													    <h3 class="brush-label m-0 ms-2 text-nowrap ui-type">Add Brush...</h3>
+
+									    </div>
+								    </div>
+					    			` 
     	}
 	  )
 document.querySelector('.rule-brushes-footer').appendChild(addRuleButton);
@@ -524,29 +571,74 @@ var openBrushEditor = function(type, currentTarget) {
 		    	classList: `header-brush header-${type} ${type}`,
 	    		innerHTML: `
 	    								<div class="editor-panel-header">
-	    									<div class="brush-editor-controls">
+	    									<div class="brush-editor-controls d-flex justify-content-between align-items-center">
 		    									<div type="button" onclick="deleteBrush('${type}', ${brushID})" class="btn p-0"><i class="bi bi-trash" style="font-size: 1rem;"></i></div>
 													<button type="button" class="btn-close" onclick="closeBrushEditor()" aria-label="Close"></button>
 	    									</div>
 	    								</div>
 
+											<h4 class="ui-type ui-label  mt-2"> GENERAL SETTINGS </h4>
 	    								<form class="mb-3">
-											  <label for="label-${brush.id}" class="form-label">Ruleset Label</label>
-											  <input type="text" class="form-control" id="label-${brush.id}" placeholder="${brush.label}">
-											</form>
-											<div id="general-brush-settings-container " class="d-flex gap-3">
-									  		<div class="form-check form-switch">
-												  <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault">
+											  <input type="text" class="blacklist-spacebar form-control" id="label-${brush.id}" placeholder="${brush.label}" onkeyup="setLabel(this.value, '${brush.id}')">
+											</form>											
+											<div id="general-brush-settings-container" class="d-flex gap-3">
+									  		<div id="lock-settings" class="form-check form-switch">
+												  <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault" onclick="setLock('${brush.id}')" data-bs-html="true" data-bs-toggle="tooltip" data-bs-title='Lock cells with this Ruleset' data-bs-placement="bottom">
 												  <label class="form-check-label" for="flexSwitchCheckDefault">Lock</label>
 												</div>
-												<div class="form-check form-switch">
-												  <input class="form-check-input" type="checkbox" id="flexSwitchCheckChecked" checked>
+												<div id="wrap-settings" class="form-check form-switch">
+												  <input class="form-check-input" type="checkbox" id="flexSwitchCheckChecked" onclick="setWrap('${brush.id}')" data-bs-html="true" data-bs-toggle="tooltip" data-bs-title='Wrap cells with this Ruleset' data-bs-placement="bottom">
 												  <label class="form-check-label" for="flexSwitchCheckChecked">Wrap</label>
 												</div>
-									  	</div>`
+									  	</div>
+											<h4 class="ui-type ui-label mt-4"> RULES </h4>
+										`
 		    }
 		  )
 		editorPanelInner.appendChild(header);
+
+
+		/////////////////////////////////
+		//// GENERAL BRUSH SETTINGS /////
+		/////////////////////////////////
+
+		// WRAP //
+		var wrapSettings = document.querySelector('#wrap-settings input');
+		if (controls.rulesets[brushID].wrap == true) {
+			wrapSettings.checked = true;
+		}
+		window.setWrap = function(brushID) {
+			if (controls.rulesets[brushID].wrap == true) { 	// toggle to false
+				controls.rulesets[brushID].wrap = false
+				console.log('wrap: "false"')
+			} else { 																					// toggle to true
+				controls.rulesets[brushID].wrap = true
+				console.log('wrap: "true"')
+			}
+		}
+
+		// LOCK //
+		var lockSettings = document.querySelector('#lock-settings input');
+		if (controls.rulesets[brushID].lock == true) {
+			lockSettings.checked = true;
+		}
+		window.setLock = function(brushID) {
+			if (controls.rulesets[brushID].lock == true) { 	// toggle to false
+				controls.rulesets[brushID].lock = false
+				console.log('lock: "false"')
+			} else { 																					// toggle to true
+				controls.rulesets[brushID].lock = true;
+				console.log('lock: "true"')
+			}
+		}
+
+		// LABEL //
+		window.setLabel = function(inputVal, brushID) {
+				controls.rulesets[brushID].label = inputVal
+				let brushLabelDOM = document.querySelector(`#brush-selection #${brushID} .brush-label`);
+				brushLabelDOM.innerHTML = `${inputVal}`;
+		}
+
 
 		var rules = Object.assign(
 		    document.createElement('div'), { 
@@ -603,6 +695,7 @@ var openBrushEditor = function(type, currentTarget) {
 
 		var p5canvasDOM = document.querySelector('.p5Canvas') // editor panel for burshes
 		p5canvasDOM.style.marginLeft = `${editorPanel.offsetWidth}px`;
+
 
 		window.addRule = function(newRulePosition) {
 		    		console.log(`Add Rule to ${brush.label}`);

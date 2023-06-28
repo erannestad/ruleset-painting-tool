@@ -10,7 +10,7 @@ var controls = {
       "currentBrush": {},
       "currentBrushSize": "",
       "paintMode": [],
-      "viewMode": "",
+      "viewMode": "valueMode",
       "currentFill": "",
       "currentRuleset": ""
     },
