@@ -81,7 +81,7 @@ var controls = {
         "id": "ruleset0",
         "idNumber": 0,
         "lock": false,
-        "wrap": false,
+        "wrap": true,
         "default": true,
         "assignments": [{"if": [1, "*", "*", "*", "*", "*", "*", "*", "*"], "then": 0, "RSYM": 1 },
                         {"if": ["*", "*", "*", 1, "*", "*", "*", "*", "*"], "then": 1, "RSYM": 1 },
@@ -95,26 +95,12 @@ var controls = {
         "id": "ruleset1",
         "idNumber": 1,
         "lock": false,
-        "wrap": false,
+        "wrap": true,
         "default": false,
         "assignments": [{"if": [1, "*", "*", "*", "*", "*", "*", "*", "*"], "then": 1, "RSYM": 1 },
                         {"if": ["*", "*", "*", 1, "*", "*", "*", "*", "*"], "then": 0, "RSYM": 1 },
                         {"if": ["*", "*", "*", "*", "*", "*", 1, "*", "*"], "then": 0, "RSYM": 1 }]
 
-    },
-    "ruleset2": { 
-        "label": "Ruleset 2",
-        "paintMode": "rule",
-        "hue": 120,
-        "preview": "",
-        "id": "ruleset2",
-        "idNumber": 2,
-        "lock": false,
-        "wrap": false,
-        "default": false,
-        "assignments": [{"if": [1, "*", "*", "*", "*", "*", "*", "*", "*"], "then": 0, "RSYM": 1 },
-                        {"if": ["*", "*", "*", 1, "*", "*", "*", "*", "*"], "then": 0, "RSYM": 1 },
-                        {"if": ["*", "*", "*", "*", "*", "*", 1, "*", "*"], "then": 1, "RSYM": 1 }]
     }
   }
 }

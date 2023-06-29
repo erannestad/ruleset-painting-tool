@@ -129,7 +129,7 @@
 							  </form>
 							</div>
 							<div class="right-menu-item">
-								<a id="info-offcanvas-control" class="btn full-height border-start menu-item" data-bs-toggle="offcanvas" href="#offcanvasinfo" role="button" aria-controls="offcanvasinfo"> info </a>
+								<a id="info-offcanvas-control" class="btn full-height border-start menu-item highlight-focus" data-bs-toggle="offcanvas" href="#offcanvasinfo" role="button" aria-controls="offcanvasinfo"> info </a>
 							</div>
 						</div>
 				</div>	
@@ -141,8 +141,8 @@
 	<div class="workspace-container">
 
 
-			<div id="intro-toast" style="width: 256px; min-height: 150px; display: block !important;" class="toast position-absolute top-0 end-0 m-3 bg-light" role="alert" aria-live="assertive" aria-atomic="true">
-			    <div class="toast-header">
+			<div id="intro-toast" style="width: 256px; min-height: 150px;" class="toast position-absolute top-0 end-0 m-3 bg-light"  role="alert" aria-live="assertive" aria-atomic="true" class="toast" data-bs-autohide="false">
+			  <div class="toast-header">
 			      <strong class="me-auto">Ruleset Painting Tool</strong>
 			      <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
 			    </div>
@@ -154,7 +154,6 @@
 
 		     	</div>
 			</div>
-
 
 
 			<div class="sidebar-container">
@@ -219,29 +218,52 @@
 		  	<div class="d-flex flex-column align-items-center my-4">
 			    <div class="main-body-width p-3 my-4">
 			    	<img style="width: 100%; mix-blend-mode: darken;" class="mt-2 mb-4" src="assets/logo/ruleset-painter-logo.gif">
-						<p class="my-4"> The <i>Ruleset Painting Tool</i> exists as an accessible method of exploring the way decentralized systems interact and compound. Specifically, this tool allows the user to design and arrange different <a href="https://en.wikipedia.org/wiki/Cellular_automaton">cellular automata</a> — systems of computation where a group of entities each follow simple rules, but collectively exhibit complex behavior. The interface aims to create a real-time environment for playing/editing/drawing with these simple systems in the browser. </p>
+						<p class="my-4"> The <i>Ruleset Painting Tool</i> exists as an accessible method of exploring the way decentralized systems interact and compound. Specifically, this tool allows the user to design and arrange different <a href="https://en.wikipedia.org/wiki/Cellular_automaton" target="_blank">cellular automata</a> — systems of computation where a group of entities each follow simple rules, but collectively exhibit complex behavior. The interface aims to create a real-time environment for playing/editing/drawing with these simple systems in the browser. </p>
 					</div>
 				</div>
 
 
-				<div class="instructions-container p-3 d-flex flex-column align-items-center">
-					<h3 class="text-center m-4">How It Works</h3>
+				<div class="instructions-container py-4 px-3 d-flex flex-column align-items-center">
+					<h1 class="text-center m-4">How It Works</h1>
 					<div style="max-width: 600px;" class="d-flex flex-column gap-4 m-4 p-4">
 						<div class="d-flex gap-4 my-2"> 
 							<img style="width: 120px" class="align-self-start" src="assets/gif-animations/2d-grid-min.gif">
-							<p>The canvas consists of a 2D grid of cells.</p>
+							<div>
+								<h6 class="mb-4">CANVAS</h6>
+								<h4>The canvas consists of a 2D grid of cells.</h4>
+							</div>
 						</div>
 						<div class="d-flex gap-4 my-2"> 
 							<img style="width: 120px" class="align-self-start" src="assets/gif-animations/binary-min.gif">
-				 			<p>Each cell is assigned a binary value: BLACK or WHITE. These values can be changed by the user.</p>
+				 			<div>
+				 				<h6 class="mb-4">CELL STATE</h6>
+				 				<h4>Each cell is assigned a binary value: <i>BLACK</i> or <i>WHITE</i>. </h4>
+								<ul>
+									<li class="small">Values can be "painted" by the user.</li>
+								</ul>		
+				 			</div>
 						</div>
 						<div class="d-flex gap-4 my-2"> 
 							<img style="width: 120px" class="align-self-start" src="assets/gif-animations/ruleset-simple.gif">
-							<p>At each time step, every cell checks it's surrounding neigborhood against a ruleset to determine if it will change color. These rulesets can be changed by the user and different cells may have different rulesets.</p>						
+							<div>
+								<h6 class="mb-4">GENERATION</h6>
+								<h4>Every cell checks it's surrounding neigborhood against a ruleset to determine if it will change state.</h4> 
+								<ul>
+									<li class="small">Rulesets are applied at each time step.</li>
+									<li class="small">Rulesets are set by the user.</li>
+									<li class="small">Cells may have different rulesets.</li>
+								</ul>		
+							</div>			
 						</div>
 						<div class="d-flex gap-4 my-2"> 
 							<img style="width: 120px" class="align-self-start" src="assets/gif-animations/parallel.gif">
-							<p>Every cell’s ruleset is applied concurrently across the grid.</p>
+							<div>
+								<h6 class="mb-4">PARALLEL</h6>
+								<h4>Every cell’s ruleset is applied concurrently across the grid.</h4>
+								<ul>
+									<li class="small">Evaluating one cell's ruleset will not effect its neighbor within the same generation cycle.</li>
+								</ul>	
+							</div>
 						</div>
 					</div>
 				</div>

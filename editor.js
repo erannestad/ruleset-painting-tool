@@ -971,7 +971,7 @@ window.onload = (event) => {
 
 		setTimeout(function(){
 			clearIntroTooltips();
-		}, 5000);
+		}, 8000);
 }
 
 
