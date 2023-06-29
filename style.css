@@ -25,7 +25,10 @@
 	    --RULE-orange-2-RGB: 217, 101, 18;
 	    --RULE-orange-2-RGB-hover: 191, 87, 11;
 	    --RULE-light-RGB: 248,246,244;
-
+		
+		/* FONTS SCHEME  */
+	    --RULE-font: 'Source Sans 3', sans-serif;
+	    --RULE-font-size: 16px;
 
 		--bs-body-color: var(--RULE-tan-6) !important;
 		--bs-link-hover-color-rgb: var(--RULE-orange-2-RGB-hover) !important;
@@ -35,11 +38,13 @@
 	    --bs-primary-rgb: var(--RULE-tan-5-RGB) !important;
 	    --bs-light-rgb: var(--RULE-light-RGB) !important;
 	    --bs-body-bg: var(--RULE-tan-2) !important;
-
 		--bs-btn-active-bg: var(--RULE-tan-4) !important;
 		--bs-border-radius: 0px !important;
 		--bs-list-group-active-bg: var(--RULE-tan-4) !important;
 		--bs-list-group-active-border-color: var(--RULE-tan-4) !important;
+
+		--bs-font-sans-serif: var(--RULE-font) !important;
+    	--bs-body-font-size: var(--RULE-font-size) !important;
 	}
 
 	/*	Disable two finger scroll behavior  */
@@ -443,9 +448,9 @@
 	}
 
 	.ui-controls-container, .ui-controls-container *{
-    font-size: 12px;
-    font-weight: 500;
-    text-transform: uppercase;
+	    font-size: 12px;
+	    font-weight: 500;
+	    text-transform: uppercase;
 	}
 
 	.ui-controls-container i {
@@ -504,7 +509,7 @@
 		height: 42px;
 	}
 
-	.main-body {
+	.main-body-width {
 		max-width: 600px;
 	}
 
@@ -560,6 +565,14 @@
 	.form-check {
 	     min-height: 0rem !important; 
 	     margin-bottom: 0rem !important ; 
+	}
+
+
+
+	.instructions-container {
+		color: var(--RULE-tan-2);
+		background-color: var(--RULE-orange-2);
+		font-size: 18px;
 	}
 
 
