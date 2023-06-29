@@ -25,6 +25,8 @@ document.addEventListener('keydown', function (evt) {
 	    step();
   } else if (evt.keyCode === 27) { // ESCAPE
     	myp5.init();
+  } if (evt.keyCode == '13') { // on enter trigger click event for the active element
+      document.activeElement.click();
   } if ( ((evt.keyCode === myp5.SHIFT) && (evt.keyCode === 221)) || (evt.keyCode === 221) ) { // right bracket
     	loadSize({elem: document.querySelector('#brush-size-selection input'), type: "", modifier: 1});
   } if ( ((evt.keyCode === myp5.SHIFT) && (evt.keyCode === 219)) || (evt.keyCode === 219) ) { // right bracket
@@ -409,7 +411,7 @@ var addBrush = function(type, brushPosition) {
 var addRuleButton = Object.assign(
 	    document.createElement('div'), { 
 		    classList: `p-0 list-group-item list-group-item-action add-brush-container dashed-gradient` ,
-    		innerHTML: `<div class="d-flex align-items-center data-bs-html="true" data-bs-toggle="tooltip" data-bs-title="Create New Brush" data-bs-placement="right" onclick="addBrush('rule','push')">
+    		innerHTML: `<div class="d-flex align-items-center data-bs-html="true" data-bs-toggle="tooltip" data-bs-title="Create New Brush" data-bs-placement="right" onclick="addBrush('rule','push')"  tabindex="2">
 							    		<div class="brush-main d-flex align-items-center justify-content-left" style="pointer-events:none;">
 
 															<div class="preview m-1 d-flex align-items-center justify-content-center">
@@ -572,8 +574,8 @@ var openBrushEditor = function(type, currentTarget) {
 	    		innerHTML: `
 	    								<div class="editor-panel-header">
 	    									<div class="brush-editor-controls d-flex justify-content-between align-items-center">
-		    									<div type="button" onclick="deleteBrush('${type}', ${brushID})" class="btn p-0"><i class="bi bi-trash" style="font-size: 1rem;"></i></div>
-													<button type="button" class="btn-close" onclick="closeBrushEditor()" aria-label="Close"></button>
+		    									<div type="button" onclick="deleteBrush('${type}', ${brushID})" class="btn p-0"><i class="bi bi-trash" style="font-size: 1rem;" data-bs-toggle="tooltip" data-bs-title="Delete Brush" data-bs-placement="bottom"></i></div>
+													<button type="button" class="btn-close" onclick="closeBrushEditor()" aria-label="Close" data-bs-toggle="tooltip" data-bs-title="Close Editor" data-bs-placement="bottom"></button>
 	    									</div>
 	    								</div>
 
@@ -779,25 +781,25 @@ var openBrushEditor = function(type, currentTarget) {
 		    									</div>
 			    								<div class='rule-main d-flex gap-2 justify-content-between'>
 				    								<div class="move-container d-flex flex-column">
-				    									<div type="button" onclick="moveRule(${i}, -1)" class=" p-0" data-bs-html="true" data-bs-toggle="tooltip" data-bs-title='Move Up' data-bs-placement="left"> <i class="bi bi-chevron-up" style="font-size: 14px;"></i> </div>
-															<div type="button" onclick="moveRule(${i}, 1)" class=" p-0" data-bs-html="true" data-bs-toggle="tooltip" data-bs-title='Move Down' data-bs-placement="left"> <i class="bi bi-chevron-down" style="font-size: 14px;"></i> </div>
+				    									<div type="button" onclick="moveRule(${i}, -1)" class=" p-0" data-bs-html="true" data-bs-toggle="tooltip" data-bs-title='Move Up' data-bs-placement="left" tabindex="3"> <i class="bi bi-chevron-up" style="font-size: 14px;"></i> </div>
+															<div type="button" onclick="moveRule(${i}, 1)" class=" p-0" data-bs-html="true" data-bs-toggle="tooltip" data-bs-title='Move Down' data-bs-placement="left" tabindex="3"> <i class="bi bi-chevron-down" style="font-size: 14px;"></i> </div>
 														</div>	
 				    								<div class="assignments-container d-flex gap-0 align-items-center">
 					    								<table class="table assignments rule assignment-${i} if table-bordered">
 															  	<tr>
-																		<td class="NW">		<div data-rule="${i}" data-cellassignment="${0}" data-value="${rule.if[0]}" class="value-toggle val-${rule.if[0]}" data-bs-toggle="tooltip" data-bs-title="NW Neighbor" data-bs-placement="top">	<i class="bi bi-asterisk"></i>	</div></td>
-																  	<td class="N">		<div data-rule="${i}" data-cellassignment="${3}" data-value="${rule.if[3]}" class="value-toggle val-${rule.if[3]}" data-bs-toggle="tooltip" data-bs-title="N Neighbor" data-bs-placement="top">		<i class="bi bi-asterisk"></i>	</div></td>
-																  	<td class="NE">		<div data-rule="${i}" data-cellassignment="${6}" data-value="${rule.if[6]}" class="value-toggle val-${rule.if[6]}" data-bs-toggle="tooltip" data-bs-title="NE Neighbor" data-bs-placement="top">	<i class="bi bi-asterisk"></i>	</div></td>
+																		<td class="NW">		<div data-rule="${i}" data-cellassignment="${0}" data-value="${rule.if[0]}" class="value-toggle val-${rule.if[0]}" data-bs-toggle="tooltip" data-bs-title="NW Neighbor" data-bs-placement="top" tabindex="3">	<i class="bi bi-asterisk"></i>	</div></td>
+																  	<td class="N">		<div data-rule="${i}" data-cellassignment="${3}" data-value="${rule.if[3]}" class="value-toggle val-${rule.if[3]}" data-bs-toggle="tooltip" data-bs-title="N Neighbor" data-bs-placement="top" tabindex="3">		<i class="bi bi-asterisk"></i>	</div></td>
+																  	<td class="NE">		<div data-rule="${i}" data-cellassignment="${6}" data-value="${rule.if[6]}" class="value-toggle val-${rule.if[6]}" data-bs-toggle="tooltip" data-bs-title="NE Neighbor" data-bs-placement="top" tabindex="3">	<i class="bi bi-asterisk"></i>	</div></td>
 															  	</tr>
 															  	<tr>
-																		<td class="W">		<div data-rule="${i}" data-cellassignment="${1}" data-value="${rule.if[1]}" class="value-toggle val-${rule.if[1]}" data-bs-toggle="tooltip" data-bs-title="W Neighbor" data-bs-placement="left">	<i class="bi bi-asterisk"></i>	</div></td>
-																  	<td class="SELF">	<div data-rule="${i}" data-cellassignment="${4}" data-value="${rule.if[4]}" class="value-toggle val-${rule.if[4]}" data-bs-toggle="tooltip" data-bs-title="SELF" data-bs-placement="top">				<i class="bi bi-asterisk"></i>	</div></td>
-																  	<td class="E">		<div data-rule="${i}" data-cellassignment="${7}" data-value="${rule.if[7]}" class="value-toggle val-${rule.if[7]}" data-bs-toggle="tooltip" data-bs-title="E Neighbor" data-bs-placement="right">	<i class="bi bi-asterisk"></i>	</div></td>
+																		<td class="W">		<div data-rule="${i}" data-cellassignment="${1}" data-value="${rule.if[1]}" class="value-toggle val-${rule.if[1]}" data-bs-toggle="tooltip" data-bs-title="W Neighbor" data-bs-placement="left" tabindex="3">	<i class="bi bi-asterisk"></i>	</div></td>
+																  	<td class="SELF">	<div data-rule="${i}" data-cellassignment="${4}" data-value="${rule.if[4]}" class="value-toggle val-${rule.if[4]}" data-bs-toggle="tooltip" data-bs-title="SELF" data-bs-placement="top" tabindex="3">				<i class="bi bi-asterisk"></i>	</div></td>
+																  	<td class="E">		<div data-rule="${i}" data-cellassignment="${7}" data-value="${rule.if[7]}" class="value-toggle val-${rule.if[7]}" data-bs-toggle="tooltip" data-bs-title="E Neighbor" data-bs-placement="right" tabindex="3">	<i class="bi bi-asterisk"></i>	</div></td>
 															  	</tr>
 															  	<tr>
-																		<td class="SW">		<div data-rule="${i}" data-cellassignment="${2}" data-value="${rule.if[2]}" class="value-toggle val-${rule.if[2]}" data-bs-toggle="tooltip" data-bs-title="SW Neighbor" data-bs-placement="bottom">	<i class="bi bi-asterisk"></i>	</div></td>
-																  	<td class="S">		<div data-rule="${i}" data-cellassignment="${5}" data-value="${rule.if[5]}" class="value-toggle val-${rule.if[5]}" data-bs-toggle="tooltip" data-bs-title="W Neighbor" data-bs-placement="bottom">		<i class="bi bi-asterisk"></i>	</div></td>
-																  	<td class="SE">		<div data-rule="${i}" data-cellassignment="${8}" data-value="${rule.if[8]}" class="value-toggle val-${rule.if[8]}" data-bs-toggle="tooltip" data-bs-title="SE Neighbor"data-bs-placement="bottom">	<i class="bi bi-asterisk"></i>	</div></td>
+																		<td class="SW">		<div data-rule="${i}" data-cellassignment="${2}" data-value="${rule.if[2]}" class="value-toggle val-${rule.if[2]}" data-bs-toggle="tooltip" data-bs-title="SW Neighbor" data-bs-placement="bottom" tabindex="3">	<i class="bi bi-asterisk"></i>	</div></td>
+																  	<td class="S">		<div data-rule="${i}" data-cellassignment="${5}" data-value="${rule.if[5]}" class="value-toggle val-${rule.if[5]}" data-bs-toggle="tooltip" data-bs-title="W Neighbor" data-bs-placement="bottom" tabindex="3">		<i class="bi bi-asterisk"></i>	</div></td>
+																  	<td class="SE">		<div data-rule="${i}" data-cellassignment="${8}" data-value="${rule.if[8]}" class="value-toggle val-${rule.if[8]}" data-bs-toggle="tooltip" data-bs-title="SE Neighbor"data-bs-placement="bottom" tabindex="3">	<i class="bi bi-asterisk"></i>	</div></td>
 															  	</tr>
 															</table>
 															<div class="arrow-container ms-1 me-1"><i style="font-size:14px; color: var(--RULE-tan-4);" class="bi bi-arrow-right"></i></div>
@@ -809,7 +811,7 @@ var openBrushEditor = function(type, currentTarget) {
 															  	</tr>
 															  	<tr>
 																		<td></td>
-																  	<td class="SELF"><div data-rule="${i}" data-value="${rule.then}" class="value-toggle val-${rule.then}" data-bs-toggle="tooltip" data-bs-title="Next State" data-bs-placement="top"><i class="bi bi-asterisk"></i>
+																  	<td class="SELF"><div data-rule="${i}" data-value="${rule.then}" class="value-toggle val-${rule.then}" data-bs-toggle="tooltip" data-bs-title="Next State" data-bs-placement="top" tabindex="3"><i class="bi bi-asterisk" ></i>
 																  	</div></td>
 																  	<td></td>
 															  	</tr>
@@ -822,9 +824,9 @@ var openBrushEditor = function(type, currentTarget) {
 														</div>
 														<div class="ruleControls d-flex flex-column">
 
-															<div type="button" onclick="deleteRule(${i})" id="delete-rule" class=" p-0" data-bs-toggle="tooltip" data-bs-title="Delete Rule" data-bs-placement="right"> <i class="bi bi-trash" style="font-size: 14px;"></i> </div>
-															<div type="button" onclick='duplicateRule(${i})' id="duplicate-rule" class=" p-0" data-bs-toggle="tooltip" data-bs-title="Duplicate Rule" data-bs-placement="right"> <i class="bi bi-files" style="font-size: 14px;"></i> </div>		
-															<div type="button" onclick='rotateRule(${i})' id="rotate-rule" class="p-0" data-bs-html="true" data-bs-toggle="tooltip" data-bs-title='Rotational Symmetry' data-bs-placement="right"> <div style="width: 15px; height: 15px" class="rule-icons rotation-${rule.RSYM}" ></div> </div>		
+															<div type="button" onclick="deleteRule(${i})" id="delete-rule" class=" p-0" data-bs-toggle="tooltip" data-bs-title="Delete Rule" data-bs-placement="right" tabindex="3"> <i class="bi bi-trash" style="font-size: 14px;"></i> </div>
+															<div type="button" onclick='duplicateRule(${i})' id="duplicate-rule" class=" p-0" data-bs-toggle="tooltip" data-bs-title="Duplicate Rule" data-bs-placement="right" tabindex="3"> <i class="bi bi-files" style="font-size: 14px;"></i> </div>		
+															<div type="button" onclick='rotateRule(${i})' id="rotate-rule" class="p-0" data-bs-html="true" data-bs-toggle="tooltip" data-bs-title='Rotational Symmetry' data-bs-placement="right" tabindex="3"> <div style="width: 15px; height: 15px" class="rule-icons rotation-${rule.RSYM}" ></div> </div>		
 
 														</div> 
 													</div>
