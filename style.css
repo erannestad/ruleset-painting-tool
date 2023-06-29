@@ -62,6 +62,16 @@
 		grid-template-rows: [r-start] 18px [r-1] 24px [r-2] 1fr [r-3] 18px [r-end];
 	}	
 
+
+	.orange-focus:focus, .highlight-focus.focus {
+	    /* outline: auto; */
+	    /* border: solid blue 3px; */
+	    outline-style: solid;
+	    outline-color: var(--RULE-orange-2);
+	    outline-offset: -2px;
+	    outline-width: 3px;
+	}
+
 	.about {
 		grid-column: c-start / c-start;
 		grid-row: r-start / r-start;
@@ -438,9 +448,14 @@
 		background-color: var(--RULE-tan-2) !important;
 	}*/
 
-	.toast-container .toast {
+	.toast {
 		max-width: 260px;
-		font-size: 12px;
+		font-size: 12px ;
+	}
+
+	.toast-header {
+		font-size: 14px !important;
+		color: var(--RULE-tan-5) !important;
 	}
 
 	.toast .keycode-container {
@@ -567,7 +582,9 @@
 	     margin-bottom: 0rem !important ; 
 	}
 
-
+	#intro-toast {
+		color: var(--RULE-tan-5) !important;
+	}
 
 	.instructions-container {
 		color: var(--RULE-tan-2);

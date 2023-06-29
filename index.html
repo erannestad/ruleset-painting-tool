@@ -52,14 +52,14 @@
 					 			</div>
 							</div>
 							<div id="play-controls" class="top-bar-control d-flex align-items-center full-height border-end gap-2 px-3 p-2">
-									<a class="play-container rounded-pill px-2 py-1 pause menu-item" onclick="playPause(this)" href="#" data-bs-toggle="tooltip" data-bs-custom-class="keycode-container tooltip-keycode" data-bs-html="true" data-bs-title='
+									<a class="play-container rounded-pill px-2 py-1 pause menu-item highlight-focus" onclick="playPause(this)" href="#" data-bs-toggle="tooltip" data-bs-custom-class="keycode-container tooltip-keycode" data-bs-html="true" data-bs-title='
 										<div class="keycode-container d-flex align-items-baseline gap-1 mb-2"> 
 											<div class="keycode"> <span class="keycode-icon"><i class="bi bi-shift"></i></span><span class="operator">+</span><span class="keycode-icon"><small>SPACE</small></span> 
 										</div>
 						      </div>'
 						      data-bs-placement="bottom">
 										<i class="bi bi-play"></i>Play</a>
-									<a class="step-container rounded-pill px-2 py-1 step menu-item" onclick="step(this)" href="#"data-bs-toggle="tooltip" data-bs-custom-class="keycode-container tooltip-keycode" data-bs-html="true" data-bs-title='
+									<a class="step-container rounded-pill px-2 py-1 step menu-item highlight-focus" onclick="step(this)" href="#"data-bs-toggle="tooltip" data-bs-custom-class="keycode-container tooltip-keycode" data-bs-html="true" data-bs-title='
 										<div class="keycode-container d-flex align-items-baseline gap-1 mb-2"> 
 											<div class="keycode"><span class="keycode-icon"><small>SPACE</small></span> 
 										</div>
@@ -73,24 +73,32 @@
 							  <button type="button" class="btn full-height border-start dropdown-toggle menu-item" data-bs-toggle="dropdown" aria-expanded="false" data-bs-auto-close="outside">
 							    Canvas
 							  </button>
-							  <form class="dropdown-menu p-4" onsubmit="submitCanvasSettings(event);return false">
-							    <div class="mb-3">
-							      <label for="canvasWidth" class="form-label">Width</label>
-							      <input type="number" class="form-control" name="canvasWidth" id="canvasWidth" value="600">
+							  <form class="dropdown-menu p-4 " onsubmit="submitCanvasSettings(event);return false">
+							    <div class="mb-1 row g-3 align-items-baseline">
+							      <label for="canvasWidth" class="form-label small col-4">Width</label>
+							      <div class="col-auto">
+							      	<input type="number" class="form-control form-control-sm" name="canvasWidth" id="canvasWidth" value="600">
+							    	</div>
 							    </div>
-							    <div class="mb-3">
-							      <label for="canvasHeight" class="form-label">Height</label>
-							      <input type="number" class="form-control" name="canvasHeight" id="canvasHeight" value="400">
+							    <div class="mb-1 row g-3 align-items-baseline">
+							      <label for="canvasHeight" class="form-label small col-4">Height</label>
+							      <div class="col-auto">
+							      	<input type="number" class="form-control form-control-sm" name="canvasHeight" id="canvasHeight" value="400">
+							      </div>
 							    </div>
-							    <div class="mb-3">
-							      <label for="cellWidth" class="form-label">Cell Width</label>
-							      <input type="number" class="form-control" name="cellWidth" id="cellWidth" value="4">
+							    <div class="mb-1 row g-3 align-items-baseline">
+							      <label for="cellWidth" class="form-label small col-4">Cell Width</label>
+							      <div class="col-auto">
+							      	<input type="number" class="form-control form-control-sm" name="cellWidth" id="cellWidth" value="4">
+							    	</div>
 							    </div>
-						   		<div class="mb-3">
-							      <label for="cellHeight" class="form-label">Cell Height</label>
-							      <input type="number" class="form-control" name="cellHeight" id="cellHeight" value="4">
+						   		<div class="mb-1 row g-3 align-items-baseline">
+							      <label for="cellHeight" class="form-label small col-4">Cell Height</label>
+							      <div class="col-auto">
+							      	<input type="number" class="form-control form-control-sm" name="cellHeight" id="cellHeight" value="4">
+							    	</div>
 							    </div>
-							    <button type="submit" class="btn btn-primary">Create Canvas</button>
+							    <button type="submit" class="btn btn-sm mt-2 btn-primary">Create Canvas</button>
 							  </form>
 							</div>
 							<div class="dropdown right-menu-item">
@@ -99,8 +107,8 @@
 							  </button>
 							  <form class="dropdown-menu p-4">
 							    <div id="save-controls" class="top-bar-control">
-										<div class="input-group">
-											<select class="form-select file-type-selection" aria-label="Select File Type">
+										<div class="input-group input-group-sm ">
+											<select class="form-control form-control-sm form-select file-type-selection" aria-label="Select File Type">
 											  <option value="png" selected>PNG</option>
 											  <option value="jpg">JPG</option>
 											  <option value="svg">SVG</option>
@@ -113,18 +121,42 @@
 										<div class="mb-3">
 										  <label for="formFileSm" class="form-label">Load JSON File</label>
 										  <input class="form-control form-control-sm" id="loadJSON" type="file">
+										  <div id="loadJSON" class="form-text">
+											  Select a .json file to open an existing project...
+											</div>
 										</div>
 									</div>
 							  </form>
 							</div>
 							<div class="right-menu-item">
-								<a class="btn full-height border-start menu-item" data-bs-toggle="offcanvas" href="#offcanvasinfo" role="button" aria-controls="offcanvasinfo"> info </a>
+								<a id="info-offcanvas-control" class="btn full-height border-start menu-item" data-bs-toggle="offcanvas" href="#offcanvasinfo" role="button" aria-controls="offcanvasinfo"> info </a>
 							</div>
 						</div>
 				</div>	
 	</div>
 
+
+
+
 	<div class="workspace-container">
+
+
+			<div id="intro-toast" style="width: 256px; min-height: 150px; display: block !important;" class="toast position-absolute top-0 end-0 m-3 bg-light" role="alert" aria-live="assertive" aria-atomic="true">
+			    <div class="toast-header">
+			      <strong class="me-auto">Ruleset Painting Tool</strong>
+			      <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+			    </div>
+			    <div class="toast-body">
+			    	<img style="width: 100%; mix-blend-mode: darken;" class="mt-2 mb-4" src="assets/logo/ruleset-painter-logo.gif">
+
+			    	<p>The Ruleset Painting Tool exists as an accessible method of exploring the way decentralized systems interact and compound. Specifically, this tool allows the user to design and arrange different cellular automata — systems of computation where a group of entities each follow simple rules, but collectively exhibit complex behavior. The interface aims to create a real-time environment for playing / editing / drawing with these simple systems in the browser.</p>
+						<button type="button" class="btn btn-primary btn-sm" data-bs-toggle="offcanvas" href="#offcanvasinfo" role="button" aria-controls="offcanvasinfo">More Info</button>
+
+		     	</div>
+			</div>
+
+
+
 			<div class="sidebar-container">
 				<div class="sidebar p-4"> 
 				 		<div id="sidebar-controls">
@@ -205,7 +237,7 @@
 						</div>
 						<div class="d-flex gap-4 my-2"> 
 							<img style="width: 120px" class="align-self-start" src="assets/gif-animations/ruleset-simple.gif">
-							<p>Each cell has its own ruleset that is applied during each “step” or “frame” in time.** Each cell’s ruleset determines what the next state of that cell will be. These rules can be changed by the user.</p>						
+							<p>At each time step, every cell checks it's surrounding neigborhood against a ruleset to determine if it will change color. These rulesets can be changed by the user and different cells may have different rulesets.</p>						
 						</div>
 						<div class="d-flex gap-4 my-2"> 
 							<img style="width: 120px" class="align-self-start" src="assets/gif-animations/parallel.gif">

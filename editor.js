@@ -45,6 +45,7 @@ document.addEventListener('keydown', function (evt) {
       playContainer.click();
   }
 });
+ 
 
 
 ////////////////////////////////
@@ -187,7 +188,7 @@ var createBrushes = function(type, container, brushesSelectionPanel) {
 										    	<div  class="preview ratio m-1 ratio-1x1 rounded" style="background-color: hsl(${brushesSelectionPanel[i].hue}, 45%, 45%); background-image: url('${brushesSelectionPanel[i].preview}')"></div>
 										      <h3 class="brush-label m-0 ms-2 text-nowrap ui-type">${brushesSelectionPanel[i].label}</h3>
 										    </div>
-										    <div class="brush-settings d-flex gap-1 border-start align-items-center justify-content-center" data-bs-toggle="tooltip" data-bs-title="${ type.charAt(0).toUpperCase() + type.slice(1) } Settings" data-bs-placement="right">
+										    <div class="brush-settings orange-focus highlight-focus d-flex gap-1 border-start align-items-center justify-content-center" ${ type == 'rule' ? 'data-bs-toggle="tooltip" data-bs-title="Rule Settings" data-bs-placement="right"' : '' }  ">
 										    	${ type == 'rule' ? '<div type="button" id="'+type+'-settings-'+brushesSelectionPanel[i].id+'" data-brushid = "'+brushesSelectionPanel[i].id+'" brushid = "'+brushesSelectionPanel[i].id+'" class="btn py-1 px-2"> <i class="bi bi-braces" style="font-size: 1rem;"></i> </div>' : ''}
 										    	${ type == 'value' ? '<div type="button" id="'+type+'-settings-'+brushesSelectionPanel[i].id+'" data-brushid = "'+brushesSelectionPanel[i].id+'" data-type="' + type + '" brushid = "'+brushesSelectionPanel[i].id+'" class="btn py-1 px-2"> <i class="bi bi-pencil-fill" style="font-size: 1rem;"></i> </div>' : ''}
 										    </div>
@@ -411,7 +412,7 @@ var addBrush = function(type, brushPosition) {
 var addRuleButton = Object.assign(
 	    document.createElement('div'), { 
 		    classList: `p-0 list-group-item list-group-item-action add-brush-container dashed-gradient` ,
-    		innerHTML: `<div class="d-flex align-items-center data-bs-html="true" data-bs-toggle="tooltip" data-bs-title="Create New Brush" data-bs-placement="right" onclick="addBrush('rule','push')"  tabindex="2">
+    		innerHTML: `<div class="d-flex align-items-center highlight-focus" data-bs-html="true" data-bs-toggle="tooltip" data-bs-title="Create New Brush" data-bs-placement="right" onclick="addBrush('rule','push')"  tabindex="2">
 							    		<div class="brush-main d-flex align-items-center justify-content-left" style="pointer-events:none;">
 
 															<div class="preview m-1 d-flex align-items-center justify-content-center">
@@ -879,6 +880,18 @@ var openBrushEditor = function(type, currentTarget) {
 }
 
 
+////////////////////////////////
+//     OFFCANVAS BUTTON       //
+////////////////////////////////
+
+const offcanvasinfo = document.getElementById('offcanvasinfo')
+offcanvasinfo.addEventListener('hide.bs.offcanvas', event => {
+  document.querySelector('#info-offcanvas-control').classList.remove('active')
+})
+offcanvasinfo.addEventListener('show.bs.offcanvas', event => {
+  document.querySelector('#info-offcanvas-control').classList.add('active')
+})
+
 
 
 ////////////////////////////////
@@ -917,6 +930,49 @@ if (controls.state.workspace.tooltips == true) {
 	tooltipControlsContainer.querySelector('input').checked = true;
 }
 
-createTooltips()
+createTooltips();
+
+
+
+////////////////////////////////
+//        ON LOAD INTRO       //
+////////////////////////////////
+
+
+window.onload = (event) => {
+    let myAlert = document.querySelector('#intro-toast');
+    let bsAlert = new bootstrap.Toast(myAlert);
+    bsAlert.show();
+
+
+    // Create Intro Tooltips
+		tooltipList.forEach(tt => {
+			tt.show()
+		})
+
+		focusElements = document.querySelectorAll(`.highlight-focus`)
+		focusElements.forEach(elem => { 
+			elem.classList.add('focus'); 
+		})
+
+
+		var clearIntroTooltips = function() {
+		 	tooltipList.forEach(tt => {
+				tt.hide()
+			}) 
+			focusElements.forEach(elem => { 
+				elem.classList.remove('focus'); 
+			})
+		}
+
+		window.addEventListener("click", function(event) {
+			clearIntroTooltips();
+		});
+
+		setTimeout(function(){
+			clearIntroTooltips();
+		}, 5000);
+}
+
 
 
