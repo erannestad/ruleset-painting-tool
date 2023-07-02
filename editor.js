@@ -24,7 +24,7 @@ document.addEventListener('keydown', function (evt) {
 	    evt.preventDefault();
 	    step();
   } else if (evt.keyCode === 27) { // ESCAPE
-    	myp5.init();
+    	resetCanvas();
   } if (evt.keyCode == '13') { // on enter trigger click event for the active element
       document.activeElement.click();
   } if ( ((evt.keyCode === myp5.SHIFT) && (evt.keyCode === 221)) || (evt.keyCode === 221) ) { // right bracket
@@ -45,7 +45,7 @@ document.addEventListener('keydown', function (evt) {
       playContainer.click();
   }
 });
- 
+
 
 
 ////////////////////////////////
@@ -85,6 +85,14 @@ function toggleViewMode(targetMode) {
 ///////////////////////////
 //    CANVAS CONTROLS    //
 ///////////////////////////
+
+
+// RESET FUNCTION
+resetCanvas = function(resetType) {
+	if ((!resetType) || (resetType == 'all')) {
+		myp5.init()
+	}
+}
 
 // set initial value of controls....
 
@@ -503,19 +511,47 @@ saveControls.querySelector(".save-file").addEventListener("click", save);
 
 function loadFile(event) {
 
+	brushesOnly = document.querySelector('#brush-load-settings input').checked;
+
 	var reader = new FileReader();
   reader.onload = function(event) {
     var jsonObj = JSON.parse(event.target.result);
     console.log(jsonObj);
-    jsonData = jsonObj; //make global
-    controls = jsonData.controls;
-    myp5.remove();
-    workspace.innerHTML = '';
-		ruleBrushesContainer.innerHTML = ""; // delete existing rules DOM
-		createBrushes("rule", ruleBrushesContainer, controls.rulesets);
-		configBrushes("rule", ruleBrushesContainer, ruleBrushesDOM);
-		setDefaultBrush("rule", controls.rulesets, ruleBrushesDOM);		
-		myp5 = new p5(sketch, workspace);
+    jsonData = jsonObj; // make global
+    if (brushesOnly) { // only brushes
+    	controls.rulesets = jsonData.controls.rulesets;
+    	controls.fills = jsonData.controls.fills;
+			ruleBrushesContainer.innerHTML = ""; // delete existing rules DOM
+
+			// check rulesets
+			var newRulesetIDs = []
+			for (i in controls.rulesets) {
+				 newRulesetIDs.push(controls.rulesets[i].id)
+			}
+			for ( let i = 0; i < myp5.columns; i++) {
+            for ( let j = 0; j < myp5.rows; j++) {
+            		console.log(myp5.board[i][j].ruleset)
+            		console.log(newRulesetIDs)
+            		if (newRulesetIDs.includes(myp5.board[i][j].ruleset) == false) {
+            			console.log("ruleset does not exist...")
+            			myp5.board[i][j].ruleset = newRulesetIDs[0]
+            			myp5.board[i][j].display()
+            		}
+            }
+      }
+			createBrushes("rule", ruleBrushesContainer, controls.rulesets);
+			configBrushes("rule", ruleBrushesContainer, ruleBrushesDOM);
+			setDefaultBrush("rule", controls.rulesets, ruleBrushesDOM);	
+	} else { // whole project
+	    controls = jsonData.controls;
+	    myp5.remove();
+	    workspace.innerHTML = '';
+			ruleBrushesContainer.innerHTML = ""; // delete existing rules DOM
+			createBrushes("rule", ruleBrushesContainer, controls.rulesets);
+			configBrushes("rule", ruleBrushesContainer, ruleBrushesDOM);
+			setDefaultBrush("rule", controls.rulesets, ruleBrushesDOM);		
+			myp5 = new p5(sketch, workspace);
+		}
   }	
   var object = reader.readAsText(event.target.files[0]);
 
@@ -547,6 +583,8 @@ var closeBrushEditor = function() {
 }
 
 var openBrushEditor = function(type, currentTarget) {
+
+	console.log(currentTarget)
 
 	// SET CSS
 	var sidebar = document.querySelector('.sidebar');
@@ -587,11 +625,11 @@ var openBrushEditor = function(type, currentTarget) {
 											<div id="general-brush-settings-container" class="d-flex gap-3">
 									  		<div id="lock-settings" class="form-check form-switch">
 												  <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault" onclick="setLock('${brush.id}')" data-bs-html="true" data-bs-toggle="tooltip" data-bs-title='Lock cells with this Ruleset' data-bs-placement="bottom">
-												  <label class="form-check-label" for="flexSwitchCheckDefault">Lock</label>
+												  <label class="form-check-label small" for="flexSwitchCheckDefault">Lock</label>
 												</div>
 												<div id="wrap-settings" class="form-check form-switch">
 												  <input class="form-check-input" type="checkbox" id="flexSwitchCheckChecked" onclick="setWrap('${brush.id}')" data-bs-html="true" data-bs-toggle="tooltip" data-bs-title='Wrap cells with this Ruleset' data-bs-placement="bottom">
-												  <label class="form-check-label" for="flexSwitchCheckChecked">Wrap</label>
+												  <label class="form-check-label small" for="flexSwitchCheckChecked">Wrap</label>
 												</div>
 									  	</div>
 											<h4 class="ui-type ui-label mt-4"> RULES </h4>
@@ -931,6 +969,33 @@ if (controls.state.workspace.tooltips == true) {
 }
 
 createTooltips();
+
+var clickTargetElem = function(selector) {
+	document.querySelector(selector).click()
+}
+
+var activeTTList = []
+var showTargetTT = function(selector) {
+	document.querySelectorAll('.tooltip.show').forEach(tt => {
+		activeTTList.push(tt)
+		tt.classList.add('hide')
+		tt.classList.remove('show')
+		document.querySelector(selector).classList.remove('focus'); 
+	})
+		focusElements.forEach(elem => { 
+			elem.classList.remove('focus'); 
+		})
+	document.querySelector(selector).classList.add('focus'); 
+	var targetInstanceTT = bootstrap.Tooltip.getInstance(selector);
+	targetInstanceTT.toggle()
+}
+
+var hideTargetTT = function(selector) {
+	var targetInstanceTT = bootstrap.Tooltip.getInstance(selector);
+	document.querySelector(selector).classList.remove('focus'); 
+	targetInstanceTT.hide()
+	var activeTTList = [];
+}
 
 
 

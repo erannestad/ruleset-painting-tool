@@ -123,7 +123,7 @@
 		text-decoration: none;
 	}
 
-	#play-controls > * {
+	#play-controls > *, #reset-controls > *  {
 		background-color: var(--RULE-tan-3);
 		user-select: none;
 		cursor: pointer !important;
@@ -131,7 +131,7 @@
 		text-decoration: none;
 	}
 
-	#play-controls > *:hover {
+	#play-controls > *:hover, #reset-controls > *:hover {
 		background-color: var(--RULE-tan-3-hover);
 		text-decoration: none;
 	}
@@ -549,6 +549,10 @@
 	}
 
 
+	h1, h2, h3, h4, h5, h6 {
+		color: var(--bs-primary);
+	}
+
 /*	h1 {
 		font-size: 48px !important;
 	}
@@ -617,6 +621,29 @@
     	padding-left: 1.2rem;
     	list-style: square;
 	}
+
+	img.reference-img {
+	    width: 100%;
+	}
+
+	#reference-cards-container .card {
+		border: none;
+		margin-bottom: 20px;
+	}
+
+	#reference-cards-container h5 a {
+		text-underline-position: under;
+		line-height: 1.5;
+	}
+
+	.badge.category {
+		background-color: var(--RULE-tan-5) !important;
+		font-weight: normal !important;
+		color: var(--RULE-tan-2);
+	}
+
+
+
 
 
 	/*************************/

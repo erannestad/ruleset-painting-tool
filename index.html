@@ -16,6 +16,9 @@
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.6.0/p5.min.js"></script>
 	<script src="https://unpkg.com/p5.js-svg@1.3.1"></script>
+	<script src="https://cdn.jsdelivr.net/npm/masonry-layout@4.2.2/dist/masonry.pkgd.min.js" integrity="sha384-GNFwBvfVxBkLMJpYMOABq3c+d3KnQxudP/mGPkzpZSTYykLBNsZEnG2D9G/X/+7D" crossorigin="anonymous" async></script>
+	<script src="https://cdn.jsdelivr.net/npm/masonry-layout@4.2.2/dist/masonry.pkgd.min.js" integrity="sha384-GNFwBvfVxBkLMJpYMOABq3c+d3KnQxudP/mGPkzpZSTYykLBNsZEnG2D9G/X/+7D" crossorigin="anonymous" async></script>
+
 
     <!-- <script src="p5.sound.min.js"></script> -->
 </head>
@@ -66,6 +69,14 @@
 						      </div>'
 						      data-bs-placement="bottom"><i class="bi bi-skip-end"></i>Step</a>
 							</div>
+							<div id="reset-controls" class="top-bar-control d-flex align-items-center full-height border-end gap-2 px-3 p-2">
+									<div class="reset-container rounded-pill px-2 py-1 step menu-item highlight-focus" onclick="resetCanvas();" href="#" data-bs-toggle="tooltip" data-bs-custom-class="keycode-container tooltip-keycode" data-bs-html="true" data-bs-title='
+										<div class="keycode-container d-flex align-items-baseline gap-1 mb-2"> 
+											<div class="keycode"><span class="keycode-icon"><small>ESC</small></span> 
+										</div>
+						      </div>'
+						      data-bs-placement="bottom"><i class="bi bi-arrow-clockwise pe-1"></i>Reset</div>
+							</div>
 						</div>
 
 						<div class="right-menu d-flex">
@@ -74,6 +85,7 @@
 							    Canvas
 							  </button>
 							  <form class="dropdown-menu p-4 " onsubmit="submitCanvasSettings(event);return false">
+							 		<h3 class="ui-type ui-label pb-2">Canvas</h3>
 							    <div class="mb-1 row g-3 align-items-baseline">
 							      <label for="canvasWidth" class="form-label small col-4">Width</label>
 							      <div class="col-auto">
@@ -107,22 +119,31 @@
 							  </button>
 							  <form class="dropdown-menu p-4">
 							    <div id="save-controls" class="top-bar-control">
+								 		<h3 class="ui-type ui-label">SAVE</h3>
 										<div class="input-group input-group-sm ">
-											<select class="form-control form-control-sm form-select file-type-selection" aria-label="Select File Type">
+											<select id="save" class="form-control form-control-sm form-select file-type-selection" aria-label="Select File Type">
 											  <option value="png" selected>PNG</option>
 											  <option value="jpg">JPG</option>
 											  <option value="svg">SVG</option>
 											  <option value="json">JSON</option>
 											</select>
 										  <button class="save-file btn btn-outline-secondary" type="button">Save File</button>
+										  <div id="save" class="form-text">
+											  Choose an image format (jpg or png), vector format (svg), or choose json to save a project file that you can open later!
+											</div>										
 										</div>
 									</div>
-									<div id="load-controls" class="top-bar-control">
+									<div id="load-controls" class="top-bar-control mt-4">
+								 		<h3 class="ui-type ui-label">LOAD</h3>
 										<div class="mb-3">
-										  <label for="formFileSm" class="form-label">Load JSON File</label>
+											<div id="brush-load-settings" class="form-check form-switch mb-2">
+												  <input class="form-check-input" type="checkbox" id="loadBrushes">
+												  <label class="form-check-label small" for="loadBrushes">Brushes Only</label>
+
+												</div>
 										  <input class="form-control form-control-sm" id="loadJSON" type="file">
 										  <div id="loadJSON" class="form-text">
-											  Select a .json file to open an existing project...
+											  Select a .json project file to open an existing project.
 											</div>
 										</div>
 									</div>
@@ -149,7 +170,10 @@
 			    <div class="toast-body">
 			    	<img style="width: 100%; mix-blend-mode: darken;" class="mt-2 mb-4" src="assets/logo/ruleset-painter-logo.gif">
 
-			    	<p>The Ruleset Painting Tool exists as an accessible method of exploring the way decentralized systems interact and compound. Specifically, this tool allows the user to design and arrange different cellular automata — systems of computation where a group of entities each follow simple rules, but collectively exhibit complex behavior. The interface aims to create a real-time environment for playing / editing / drawing with these simple systems in the browser.</p>
+			    	<p>The Ruleset Painting Tool exists as an accessible method of exploring the way decentralized systems interact and compound.</p>
+			    	<p>To start, try painting each ruleset on the canvas and press <a class="" onclick="clickTargetElem('.step-container')" href="#"  onmouseover="showTargetTT('.step-container')" onmouseleave="hideTargetTT('.step-container')">step</a> or <a class="" href="#" onclick="clickTargetElem('.play-container')" onmouseover="showTargetTT('.play-container')" onmouseleave="hideTargetTT('.play-container')">play</a>.</p>
+			    	<p>What happens when you adjust a <a class="" href="#" onclick="clickTargetElem('#rule-brushes-container > .brush .brush-settings'); document.querySelector('#rule-brushes-container > .brush').classList.add('opened'); openBrushEditor('rule', document.querySelector('#rule-brushes-container > .brush .btn'))" onmouseover="showTargetTT('#rule-brushes-container > .brush .brush-settings')" onmouseleave="hideTargetTT('#rule-brushes-container > .brush .brush-settings')">ruleset's settings</a>? 
+		    		<p> Be patient and keep playing around. Distributed systems can be difficult to predict and control!</p>
 						<button type="button" class="btn btn-primary btn-sm" data-bs-toggle="offcanvas" href="#offcanvasinfo" role="button" aria-controls="offcanvasinfo">More Info</button>
 
 		     	</div>
@@ -256,7 +280,7 @@
 							</div>			
 						</div>
 						<div class="d-flex gap-4 my-2"> 
-							<img style="width: 120px" class="align-self-start" src="assets/gif-animations/parallel.gif">
+							<img style="width: 120px" class="align-self-start" src="assets/gif-animations/parallel-processing.gif">
 							<div>
 								<h6 class="mb-4">PARALLEL</h6>
 								<h4>Every cell’s ruleset is applied concurrently across the grid.</h4>
@@ -270,10 +294,65 @@
 			    
 
 		  	<div class="d-flex flex-column align-items-center my-4">
-			    <div class="main-body-width p-3 my-4">
-						<h3>More about Cellular Automata</h3>
-						<p>A cellular automata represents a class of models that aim to simulate complex dynamical systems using simple local rules. Cellular automata are discrete mathematical models that consist of a grid of cells, each of which can be in one of a finite number of states. The cells evolve over discrete time steps according to a set of local rules, typically based on the states of their neighboring cells. This leads to emergent global behavior from the interactions of the individual cells.</p>
-			    </div>
+			    <h1 class="my-4 py-4 text-primary">References</h1>
+					  <div style="width: 100%;" id="reference-cards-container" class="row g-4 card-columns" data-masonry='{"percentPosition": true }' >
+
+
+					    <div class="col-3">
+					    	<div class="reference card">
+					    		<img class="reference-img card-img-top" src="assets/images/colorcode.png">
+					    		<div class="card-body">
+				          	<h5 class="card-title"><a href="http://colorcode2.bananabanana.me/" class="">ColorCode</a></h5>
+				          	<span class="badge rounded-pill text-bg-primary category">Website</span>
+				          </div>
+					    	</div>
+					    </div>
+					    <div class="col-3">
+					    	<div class="reference card">
+					    		<img class="reference-img card-img-top" src="assets/images/splaty.png">
+					    		<div class="card-body">
+			    	    		<h5 class="card-title"><a href="http://splatycode.bananabanana.me/" class="">SplatyCode</a></h5>
+				          	<span class="badge rounded-pill text-bg-primary category">Website</span>
+			    	    	</div>
+					    	</div>
+					    </div>
+					    <div class="col-3">
+					    	<div class="reference card">
+					    		<img class="reference-img card-img-top" src="assets/images/logic-grid.png">
+					    		<div class="card-body">
+			    	    		<h5 class="card-title"><a href="https://sciencevsmagic.net/logicgrid/#382C42" class="">Logic Grid</a></h5> 
+				          	<span class="badge rounded-pill text-bg-primary category">Website</span>
+			    	    	</div>
+					   		</div>
+					    </div>
+					    <div class="col-3">
+					    	<div class="reference card">
+					    		<img class="reference-img card-img-top" src="assets/images/tttj.jpg">
+					    		<div class="card-body">
+					    			<h5 class="card-title"><a href="https://mitpress.mit.edu/9780262680936/turtles-termites-and-traffic-jams/" class="">Turtles, Termites, and Traffic Jams</a></h5>
+				          	<span class="badge rounded-pill text-bg-primary category">Book</span>
+					    		</div>
+						    </div>
+					    </div>
+					    <div class="col-3">
+					    	<div class="reference card">
+					    		<img class="reference-img card-img-top" src="assets/images/2d-ca-paper.png">
+					    		<div class="card-body">
+					    			<h5 class="card-title"><a href="https://www.are.na/block/21728930" class="">Two-Dimensional Cellular Automata</a></h5>
+				          	<span class="badge rounded-pill text-bg-primary category">Paper</span>
+					    		</div>
+					    	</div>
+					    </div>
+					    <div class="col-3">
+					    	<div class="reference card">
+					    		<img class="reference-img card-img-top" src="assets/images/textiles.png">
+					    		<div class="card-body">
+					    			<h5 class="card-title"><a href="http://www.ijdesign.org/index.php/IJDesign/article/viewFile/3050/825" class="">Cellular Automata-Based Generative Textile Design</a></h5>
+				          	<span class="badge rounded-pill text-bg-primary category">Paper</span>
+					    		</div>
+					    	</div>
+					    </div>
+					  </div>
 			  </div>
 		    
 		  </div>
