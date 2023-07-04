@@ -9,13 +9,14 @@ The _Ruleset Painting Tool_ exists as an accessible method of exploring the way 
 ============
 
 ###### CANVAS
+*The canvas consists of a 2D grid of cells.*
 <img style="width: 120px" class="align-self-start" src="assets/gif-animations/2d-grid-min.gif">
-#### The canvas consists of a 2D grid of cells.
 
 ###### CELL STATE
-<img style="width: 120px" class="align-self-start" src="assets/gif-animations/binary-min.gif">
-#### Each cell is assigned a binary value: _BLACK_ or _WHITE_.
+* Each cell is assigned a binary value: _BLACK_ or _WHITE_.*
 *   Values can be "painted" by the user.
+<img style="width: 120px" class="align-self-start" src="assets/gif-animations/binary-min.gif">
+
 
 ###### GENERATION
 <img style="width: 120px" class="align-self-start" src="assets/gif-animations/ruleset-simple.gif">
