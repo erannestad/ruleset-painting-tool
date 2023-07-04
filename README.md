@@ -2,7 +2,7 @@
 
 <img style="width: 500px" class="align-self-start" src="assets/logo/ruleset-painter-logo.gif">
 
-<img style="width: 500px" class="align-self-start" src="assets/logo/ruleset-painter-logo.gif">
+![gif-3_1600x1120](https://github.com/erannestad/ruleset-painting-tool/assets/36762726/b50dfbfb-0a8c-49f2-8872-f75ae5170400)
 
 The _Ruleset Painting Tool_ exists as an accessible method of exploring the way decentralized systems interact and compound. Specifically, this tool allows the user to design and arrange different [cellular automata](https://en.wikipedia.org/wiki/Cellular_automaton) — systems of computation where a group of entities each follow simple rules, but collectively exhibit complex behavior. The interface aims to create a real-time environment for playing/editing/drawing with these simple systems in the browser.
 
