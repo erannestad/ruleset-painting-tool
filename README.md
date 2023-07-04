@@ -1,13 +1,79 @@
 # Ruleset Painting Tool
 
-The Ruleset Painting Tool exists as an accessible method of exploring the way decentralized systems interact and compound. Specifically, this tool allows the user to design and arrange different cellular automata — systems of computation where a group of entities each follow simple rules, but collectively exhibit complex behavior. The interface aims to create a real-time environment for playing/editing/drawing with these simple systems in the browser.
+![](assets/logo/ruleset-painter-logo.gif)
 
-### How It Works
-- The canvas consists of a 2D grid of cells.
-- Each cell is assigned a binary value: BLACK or WHITE. These values can be changed by the user.
-- Each cell has its own ruleset that is applied during each “step” or “frame” in time.** Each cell’s ruleset determines what the next state of that cell will be. These rules can be changed by the user.
-- Every cell’s ruleset is applied concurrently across the grid.
+The _Ruleset Painting Tool_ exists as an accessible method of exploring the way decentralized systems interact and compound. Specifically, this tool allows the user to design and arrange different [cellular automata](https://en.wikipedia.org/wiki/Cellular_automaton) — systems of computation where a group of entities each follow simple rules, but collectively exhibit complex behavior. The interface aims to create a real-time environment for playing/editing/drawing with these simple systems in the browser.
 
-### More about Cellular Automata
-A cellular automata represents a class of models that aim to simulate complex dynamical systems using simple local rules. Cellular automata are discrete mathematical models that consist of a grid of cells, each of which can be in one of a finite number of states. The cells evolve over discrete time steps according to a set of local rules, typically based on the states of their neighboring cells. This leads to emergent global behavior from the interactions of the individual cells.
- 
+##How It Works
+============
+
+![](assets/gif-animations/2d-grid-min.gif)
+
+###### CANVAS
+
+#### The canvas consists of a 2D grid of cells.
+
+![](assets/gif-animations/binary-min.gif)
+
+###### CELL STATE
+
+#### Each cell is assigned a binary value: _BLACK_ or _WHITE_.
+
+*   Values can be "painted" by the user.
+
+![](assets/gif-animations/ruleset-simple.gif)
+
+###### GENERATION
+
+#### Every cell checks it's surrounding neigborhood against a ruleset to determine if it will change state.
+
+*   Rulesets are applied at each time step.
+*   Rulesets are set by the user.
+*   Cells may have different rulesets.
+
+![](assets/gif-animations/parallel-processing.gif)
+
+###### PARALLEL
+
+#### Every cell’s ruleset is applied concurrently across the grid.
+
+*   Evaluating one cell's ruleset will not effect its neighbor within the same generation cycle.
+
+References
+==========
+
+![](assets/images/colorcode.png)
+
+##### [ColorCode](http://colorcode2.bananabanana.me/)
+
+Website
+
+![](assets/images/splaty.png)
+
+##### [SplatyCode](http://splatycode.bananabanana.me/)
+
+Website
+
+![](assets/images/logic-grid.png)
+
+##### [Logic Grid](https://sciencevsmagic.net/logicgrid/#382C42)
+
+Website
+
+![](assets/images/tttj.jpg)
+
+##### [Turtles, Termites, and Traffic Jams](https://mitpress.mit.edu/9780262680936/turtles-termites-and-traffic-jams/)
+
+Book
+
+![](assets/images/2d-ca-paper.png)
+
+##### [Two-Dimensional Cellular Automata](https://www.are.na/block/21728930)
+
+Paper
+
+![](assets/images/textiles.png)
+
+##### [Cellular Automata-Based Generative Textile Design](http://www.ijdesign.org/index.php/IJDesign/article/viewFile/3050/825)
+
+Paper
