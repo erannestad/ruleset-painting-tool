@@ -7,7 +7,7 @@ The _Ruleset Painting Tool_ exists as an accessible method of exploring the way 
 ## How It Works
 ============
 
-![](assets/gif-animations/2d-grid-min.gif)
+<img style="width: 120px" class="align-self-start" src="assets/gif-animations/2d-grid-min.gif">
 
 ###### CANVAS
 
@@ -39,41 +39,12 @@ The _Ruleset Painting Tool_ exists as an accessible method of exploring the way 
 
 *   Evaluating one cell's ruleset will not effect its neighbor within the same generation cycle.
 
-References
+References and Other Projects
 ==========
 
-![](assets/images/colorcode.png)
-
-##### [ColorCode](http://colorcode2.bananabanana.me/)
-
-Website
-
-![](assets/images/splaty.png)
-
-##### [SplatyCode](http://splatycode.bananabanana.me/)
-
-Website
-
-![](assets/images/logic-grid.png)
-
-##### [Logic Grid](https://sciencevsmagic.net/logicgrid/#382C42)
-
-Website
-
-![](assets/images/tttj.jpg)
-
-##### [Turtles, Termites, and Traffic Jams](https://mitpress.mit.edu/9780262680936/turtles-termites-and-traffic-jams/)
-
-Book
-
-![](assets/images/2d-ca-paper.png)
-
-##### [Two-Dimensional Cellular Automata](https://www.are.na/block/21728930)
-
-Paper
-
-![](assets/images/textiles.png)
-
-##### [Cellular Automata-Based Generative Textile Design](http://www.ijdesign.org/index.php/IJDesign/article/viewFile/3050/825)
-
-Paper
+- [ColorCode](http://colorcode2.bananabanana.me/)
+- [SplatyCode](http://splatycode.bananabanana.me/)
+- [Logic Grid](https://sciencevsmagic.net/logicgrid/#382C42)
+- [Turtles, Termites, and Traffic Jams](https://mitpress.mit.edu/9780262680936/turtles-termites-and-traffic-jams/)
+- [Two-Dimensional Cellular Automata](https://www.are.na/block/21728930)
+- [Cellular Automata-Based Generative Textile Design](http://www.ijdesign.org/index.php/IJDesign/article/viewFile/3050/825)
