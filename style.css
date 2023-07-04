@@ -631,6 +631,11 @@
 		margin-bottom: 20px;
 	}
 
+	.card-body{
+		padding: 8px 4px !important;
+/*		margin: 12px !important;*/
+	}
+
 	#reference-cards-container h5 a {
 		text-underline-position: under;
 		line-height: 1.5;
@@ -642,6 +647,9 @@
 		color: var(--RULE-tan-2);
 	}
 
+	img.reference-img {
+	    background-color: lightgray;
+	}
 
 
 

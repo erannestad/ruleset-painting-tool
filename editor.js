@@ -1010,12 +1010,33 @@ var hideTargetTT = function(selector) {
 
 
 
+
+
+////////////////////////////////
+//           MASONRY          //
+////////////////////////////////
+// imagesloaded: https://imagesloaded.desandro.com/
+// masonry: https://masonry.desandro.com/layout.html
+
+var masonryContainer = document.querySelector('.grid');
+
+new imagesLoaded( masonryContainer, function() {
+			var msnry = new Masonry( masonryContainer, {
+			  // options
+				"percentPosition": true 
+			});
+} )
+
+
+
+
 ////////////////////////////////
 //        ON LOAD INTRO       //
 ////////////////////////////////
 
 
 window.onload = (event) => {
+
     let myAlert = document.querySelector('#intro-toast');
     let bsAlert = new bootstrap.Toast(myAlert);
     bsAlert.show();
@@ -1049,6 +1070,8 @@ window.onload = (event) => {
 			clearIntroTooltips();
 		}, 8000);
 }
+
+
 
 
 
