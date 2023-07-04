@@ -6,7 +6,7 @@
 The _Ruleset Painting Tool_ exists as an accessible method of exploring the way decentralized systems interact and compound. Specifically, this tool allows the user to design and arrange different [cellular automata](https://en.wikipedia.org/wiki/Cellular_automaton) — systems of computation where a group of entities each follow simple rules, but collectively exhibit complex behavior. The interface aims to create a real-time environment for playing/editing/drawing with these simple systems in the browser.
 
 ## How It Works
-============
+==
 
 ###### CANVAS
 The canvas consists of a 2D grid of cells.
