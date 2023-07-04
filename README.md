@@ -25,7 +25,7 @@ The _Ruleset Painting Tool_ exists as an accessible method of exploring the way 
 *   Cells may have different rulesets.
 
 ###### PARALLEL
-![](assets/gif-animations/parallel-processing.gif)
+<img style="width: 120px" class="align-self-start" src="assets/gif-animations/parallel-processing.gif">
 #### Every cell’s ruleset is applied concurrently across the grid.
 *   Evaluating one cell's ruleset will not effect its neighbor within the same generation cycle.
 
