@@ -10,26 +10,27 @@ The _Ruleset Painting Tool_ exists as an accessible method of exploring the way 
 
 ###### CANVAS
 The canvas consists of a 2D grid of cells.
+
 <img style="width: 120px" class="align-self-start" src="assets/gif-animations/2d-grid-min.gif">
 
 
 ###### CELL STATE
 Each cell is assigned a binary value: _BLACK_ or _WHITE_. 
-*   Values can be "painted" by the user.
+- Values can be "painted" by the user.
 <img style="width: 120px" class="align-self-start" src="assets/gif-animations/binary-min.gif">
 
 
 ###### GENERATION
 Every cell checks it's surrounding neigborhood against a ruleset to determine if it will change state.
-*   Rulesets are applied at each time step.
-*   Rulesets are set by the user.
-*   Cells may have different rulesets.
+- Rulesets are applied at each time step.
+- Rulesets are set by the user.
+- Cells may have different rulesets.
 <img style="width: 120px" class="align-self-start" src="assets/gif-animations/ruleset-simple.gif">
 
 
 ###### PARALLEL
 Every cell’s ruleset is applied concurrently across the grid.
-*   Evaluating one cell's ruleset will not effect its neighbor within the same generation cycle.
+- Evaluating one cell's ruleset will not effect its neighbor within the same generation cycle.
 <img style="width: 120px" class="align-self-start" src="assets/gif-animations/parallel-processing.gif">
 
 
