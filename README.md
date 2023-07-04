@@ -1,6 +1,6 @@
 # Ruleset Painting Tool
 
-<img style="width: 500px" class="align-self-start" src="assets/logo/ruleset-painter-logo.gif">
+<img style="margin: auto; width: 500px" class="align-self-start" src="assets/logo/ruleset-painter-logo.gif">
 
 ![gif-3_1600x1120](https://github.com/erannestad/ruleset-painting-tool/assets/36762726/b50dfbfb-0a8c-49f2-8872-f75ae5170400)
 
