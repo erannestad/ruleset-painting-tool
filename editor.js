@@ -519,7 +519,18 @@ function loadFile(event) {
     console.log(jsonObj);
     jsonData = jsonObj; // make global
     if (brushesOnly) { // only brushes
-    	controls.rulesets = jsonData.controls.rulesets;
+    	if (document.querySelector('#brushLoadType').value == 'append'){
+			    	var lastKeyValue = controls.rulesets[Object.keys(controls.rulesets)[Object.keys(controls.rulesets).length - 1]].idNumber // "get last key in rulesets object (EX: ruleset2)"
+			    	console.log(lastKeyValue)
+			    	for (i in jsonData.controls.rulesets) {
+			    		var newIDNumber = lastKeyValue+1+jsonData.controls.rulesets[i].idNumber
+			    		controls.rulesets[`ruleset${newIDNumber}`] = jsonData.controls.rulesets[i]
+			    		controls.rulesets[`ruleset${newIDNumber}`].id = `ruleset${newIDNumber}`
+			    		controls.rulesets[`ruleset${newIDNumber}`].idNumber = newIDNumber
+			    	}
+    	} else {
+    		  	controls.rulesets = jsonData.controls.rulesets;
+    	}
     	controls.fills = jsonData.controls.fills;
 			ruleBrushesContainer.innerHTML = ""; // delete existing rules DOM
 

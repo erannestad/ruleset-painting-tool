@@ -137,10 +137,13 @@
 								 		<h3 class="ui-type ui-label">LOAD</h3>
 										<div class="mb-3">
 											<div id="brush-load-settings" class="form-check form-switch mb-2">
-												  <input class="form-check-input" type="checkbox" id="loadBrushes">
-												  <label class="form-check-label small" for="loadBrushes">Brushes Only</label>
-
-												</div>
+											  <input class="form-check-input" onclick="document.querySelector('#brushLoadType').classList.toggle('d-none')" type="checkbox" id="loadBrushes">
+											  <label class="form-check-label small" for="loadBrushes">Brushes Only</label>
+											</div>
+											<select id="brushLoadType" class="d-none form-control form-control-sm form-select file-type-selection mb-2 " aria-label="Brush Load Type">
+											  <option value="overwrite" selected>Overwrite Brush List</option>
+											  <option value="append">Append to Brush List</option>
+											</select>									
 										  <input class="form-control form-control-sm" id="loadJSON" type="file">
 										  <div id="loadJSON" class="form-text">
 											  Select a .json project file to open an existing project.
