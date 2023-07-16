@@ -369,12 +369,13 @@ var addBrush = function(type, brushPosition) {
 	// Ruleset Hue
 	var rulesetHues = []
 	for (i in controls.rulesets) { rulesetHues.push(controls.rulesets[i].hue); }
-	var newHue = function() {
-		console.log(rulesetHues)
-		initialVal = rulesetHues[rulesetHues.length - 1]+40 ;
-		console.log(initialVal)
+	window.newHue = function(referenceArray) {
+		console.log(referenceArray)
+		
+		initialVal = referenceArray[referenceArray.length - 1]+40 ;
 		if (initialVal > 360) { initialVal = initialVal % 360} 
-		console.log(initialVal)
+		console.log(`adding ${initialVal}`)
+		referenceArray.push(initialVal)
 		return initialVal;
 	}
 
@@ -382,7 +383,7 @@ var addBrush = function(type, brushPosition) {
 	var newRuleset = { 
         "label": `Ruleset ${newIDNumber}`,
         "paintMode": "rule",
-        "hue": newHue(),
+        "hue": newHue(rulesetHues),
         "preview": "",
         "id": `ruleset${newIDNumber}`,
         "idNumber": newIDNumber,
@@ -527,19 +528,38 @@ function loadFile(event) {
     jsonData = jsonObj; // make global
     if (brushesOnly) { // only brushes
     	if (document.querySelector('#brushLoadType').value == 'append'){
+
+    				// Adjust Ruleset Hues
+						var rulesetHuesLoaded = []
+						for (i in controls.rulesets) { rulesetHuesLoaded.push(controls.rulesets[i].hue); }
+
 			    	var lastKeyValue = controls.rulesets[Object.keys(controls.rulesets)[Object.keys(controls.rulesets).length - 1]].idNumber // "get last key in rulesets object (EX: ruleset2)"
-			    	console.log(lastKeyValue)
+			    	// console.log(lastKeyValue)
 			    	for (i in jsonData.controls.rulesets) {
 			    		var newIDNumber = lastKeyValue+1+jsonData.controls.rulesets[i].idNumber
-			    		controls.rulesets[`ruleset${newIDNumber}`] = jsonData.controls.rulesets[i]
-			    		controls.rulesets[`ruleset${newIDNumber}`].id = `ruleset${newIDNumber}`
-			    		controls.rulesets[`ruleset${newIDNumber}`].idNumber = newIDNumber
+			    		var newHueVal = newHue(rulesetHuesLoaded);
+			    		controls.rulesets[`ruleset${newIDNumber}`] = jsonData.controls.rulesets[i];
+			    		controls.rulesets[`ruleset${newIDNumber}`].id = `ruleset${newIDNumber}`;
+			    		controls.rulesets[`ruleset${newIDNumber}`].idNumber = newIDNumber;
+			    		controls.rulesets[`ruleset${newIDNumber}`].hue = newHueVal;
 			    	}
+
     	} else {
     		  	controls.rulesets = jsonData.controls.rulesets;
     	}
     	controls.fills = jsonData.controls.fills;
+				
+			// var newHue = function() {
+			// 	console.log(rulesetHues)
+			// 	initialVal = rulesetHues[rulesetHues.length - 1]+40 ;
+			// 	console.log(initialVal)
+			// 	if (initialVal > 360) { initialVal = initialVal % 360} 
+			// 	console.log(initialVal)
+			// 	return initialVal;
+			// }
+
 			ruleBrushesContainer.innerHTML = ""; // delete existing rules DOM
+
 
 			// check rulesets
 			var newRulesetIDs = []
@@ -548,8 +568,8 @@ function loadFile(event) {
 			}
 			for ( let i = 0; i < myp5.columns; i++) {
             for ( let j = 0; j < myp5.rows; j++) {
-            		console.log(myp5.board[i][j].ruleset)
-            		console.log(newRulesetIDs)
+            		// console.log(myp5.board[i][j].ruleset)
+            		// console.log(newRulesetIDs)
             		if (newRulesetIDs.includes(myp5.board[i][j].ruleset) == false) {
             			console.log("ruleset does not exist...")
             			myp5.board[i][j].ruleset = newRulesetIDs[0]

@@ -173,17 +173,19 @@ let sketch = function(p) {
                             p.layer1.pop();
                           }
                           p.layer1.noFill();
-                          if (controls.cells.strokeWeight) p.layer1.strokeWeight(controls.cells.strokeWeight);
-                          else p.layer1.strokeWeight(controls.cells.width);
                           p.layer1.strokeCap(p.SQUARE);
                           if (controls.state.editor.viewMode == 'valueMode') { p.layer1.stroke(0, 0, hoverModifier(30)); }
                           if (controls.state.editor.viewMode == 'ruleMode') { p.layer1.stroke(controls.rulesets[this.ruleset].hue, 230, hoverModifier(130)); }  
                           p.layer1.line(this.x * p.layer1.w + p.layer1.padding + p.layer1.floor(p.layer1.w/2), this.y * p.layer1.h + p.layer1.padding, this.x * p.layer1.w + p.layer1.padding + p.layer1.floor(p.layer1.w/2), this.y * p.layer1.h + p.layer1.padding + p.layer1.h);
                           if ((controls.cells.display == 'stroke-vertical') || (controls.cells.display == 'line')) {  // if vertical line
-                            p.layer1.line(this.x * p.w + p.padding + p.floor(p.w/2), this.y * p.h + p.padding, this.x * p.w + p.padding + p.floor(p.w/2), this.y * p.h + p.padding + p.h);
+                              if (controls.cells.strokeWeight) p.layer1.strokeWeight(controls.cells.strokeWeight);
+                              else p.layer1.strokeWeight(controls.cells.width);
+                              p.layer1.line(this.x * p.w + p.padding + p.floor(p.w/2), this.y * p.h + p.padding, this.x * p.w + p.padding + p.floor(p.w/2), this.y * p.h + p.padding + p.h);
                           } 
                           if (controls.cells.display == 'stroke-horizontal') { // if horizontal line 
-                            p.layer1.line(this.x * p.w + p.padding, this.y * p.h + p.padding + p.floor(p.h/2), this.x * p.w + p.padding + p.w, this.y * p.h + p.padding + p.floor(p.h/2));
+                              if (controls.cells.strokeWeight) p.layer1.strokeWeight(controls.cells.strokeWeight);
+                              else p.layer1.strokeWeight(controls.cells.height);
+                              p.layer1.line(this.x * p.w + p.padding, this.y * p.h + p.padding + p.floor(p.h/2), this.x * p.w + p.padding + p.w, this.y * p.h + p.padding + p.floor(p.h/2));
                           }   
                   }
               }
@@ -204,15 +206,17 @@ let sketch = function(p) {
                             p.layer1.pop();
                           }
                           p.layer1.noFill();
-                          if (controls.cells.strokeWeight) p.layer1.strokeWeight(controls.cells.strokeWeight);
-                          else p.layer1.strokeWeight(controls.cells.width);
                           p.layer1.strokeCap(p.SQUARE);
                           if (controls.state.editor.viewMode == 'valueMode') { p.layer1.stroke(controls.rulesets[this.ruleset].hue, 0, hoverModifier(360)); }
                           if (controls.state.editor.viewMode == 'ruleMode') { p.layer1.stroke(controls.rulesets[this.ruleset].hue, 180, hoverModifier(200)); }
                           if ((controls.cells.display == 'stroke-vertical') || (controls.cells.display == 'line')) {  // if vertical line
+                            if (controls.cells.strokeWeight) p.layer1.strokeWeight(controls.cells.strokeWeight);
+                            else p.layer1.strokeWeight(controls.cells.width);
                             p.layer1.line(this.x * p.w + p.padding + p.floor(p.w/2), this.y * p.h + p.padding, this.x * p.w + p.padding + p.floor(p.w/2), this.y * p.h + p.padding + p.h);
                           } 
                           if (controls.cells.display == 'stroke-horizontal') { // if horizontal line 
+                            if (controls.cells.strokeWeight) p.layer1.strokeWeight(controls.cells.strokeWeight);
+                            else p.layer1.strokeWeight(controls.cells.height);
                             p.layer1.line(this.x * p.w + p.padding, this.y * p.h + p.padding + p.floor(p.h/2), this.x * p.w + p.padding + p.w, this.y * p.h + p.padding + p.floor(p.h/2));
                           }                     
                   }              
@@ -633,15 +637,17 @@ var createCanvas = function() {
                             temp.pop();
                           }
                           temp.noFill();
-                          if (controls.cells.strokeWeight) temp.strokeWeight(controls.cells.strokeWeight);
-                          else temp.strokeWeight(controls.cells.width);
                           temp.strokeCap(temp.SQUARE);
                           if (controls.state.editor.viewMode == 'valueMode') { temp.stroke(0, 0, 30); }
                           if (controls.state.editor.viewMode == 'ruleMode') { temp.stroke(controls.rulesets[this.ruleset].hue, 230, 130); }  
                           if ((controls.cells.display == 'stroke-vertical') || (controls.cells.display == 'line')) {  // if vertical line
+                            if (controls.cells.strokeWeight) temp.strokeWeight(controls.cells.strokeWeight);
+                            else temp.strokeWeight(controls.cells.width);
                             temp.line(this.x * temp.w + temp.padding + temp.floor(temp.w/2), this.y * temp.h + temp.padding, this.x * temp.w + temp.padding + temp.floor(temp.w/2), this.y * temp.h + temp.padding + temp.h);
                           } 
                           if (controls.cells.display == 'stroke-horizontal') { // if horizontal line 
+                            if (controls.cells.strokeWeight) temp.strokeWeight(controls.cells.strokeWeight);
+                            else temp.strokeWeight(controls.cells.height);
                             temp.line(this.x * temp.w + temp.padding, this.y * temp.h + temp.padding + temp.floor(temp.h/2), this.x * temp.w + temp.padding + temp.w, this.y * temp.h + temp.padding + temp.floor(temp.h/2));
                           }
                   }
@@ -663,15 +669,17 @@ var createCanvas = function() {
                             temp.pop();
                           }
                           temp.noFill();
-                          if (controls.cells.strokeWeight) temp.strokeWeight(controls.cells.strokeWeight);
-                          else temp.strokeWeight(controls.cells.width);
                           temp.strokeCap(temp.SQUARE);
                           if (controls.state.editor.viewMode == 'valueMode') { temp.stroke(controls.rulesets[this.ruleset].hue,0, 360); }
                           if (controls.state.editor.viewMode == 'ruleMode') { temp.stroke(controls.rulesets[this.ruleset].hue, 180, 200); }
                           if ((controls.cells.display == 'stroke-vertical') || (controls.cells.display == 'line')) {  // if vertical line
+                            if (controls.cells.strokeWeight) temp.strokeWeight(controls.cells.strokeWeight);
+                            else temp.strokeWeight(controls.cells.width);
                             temp.line(this.x * temp.w + temp.padding + temp.floor(temp.w/2), this.y * temp.h + temp.padding, this.x * temp.w + temp.padding + temp.floor(temp.w/2), this.y * temp.h + temp.padding + temp.h);
                           } 
                           if (controls.cells.display == 'stroke-horizontal') { // if horizontal line 
+                            if (controls.cells.strokeWeight) temp.strokeWeight(controls.cells.strokeWeight);
+                            else temp.strokeWeight(controls.cells.height);
                             temp.line(this.x * temp.w + temp.padding, this.y * temp.h + temp.padding + temp.floor(temp.h/2), this.x * temp.w + temp.padding + temp.w, this.y * temp.h + temp.padding + temp.floor(temp.h/2));
                           }                  
                   }              
