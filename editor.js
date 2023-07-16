@@ -357,6 +357,16 @@ var deleteBrush = function(type, brushID) {
 	closeBrushEditor();
 }
 
+var	newHue = function(referenceArray) {
+		console.log(referenceArray)
+
+		initialVal = referenceArray[referenceArray.length - 1]+40 ;
+		if (initialVal > 360) { initialVal = initialVal % 360} 
+		console.log(`adding ${initialVal}`)
+		referenceArray.push(initialVal)
+		return initialVal;
+	}
+
 var addBrush = function(type, brushPosition) {
 	if (type != "rule") return;
 	console.log(`Adding new ruleset to rule brushes`);
@@ -369,15 +379,6 @@ var addBrush = function(type, brushPosition) {
 	// Ruleset Hue
 	var rulesetHues = []
 	for (i in controls.rulesets) { rulesetHues.push(controls.rulesets[i].hue); }
-	window.newHue = function(referenceArray) {
-		console.log(referenceArray)
-		
-		initialVal = referenceArray[referenceArray.length - 1]+40 ;
-		if (initialVal > 360) { initialVal = initialVal % 360} 
-		console.log(`adding ${initialVal}`)
-		referenceArray.push(initialVal)
-		return initialVal;
-	}
 
 
 	var newRuleset = { 
