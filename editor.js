@@ -119,6 +119,13 @@ submitCanvasSettings = function(form) {
 }
 
 
+setCellDisplayMode = function(elem) {
+	console.log(`Cell display mode set to ${elem.value}`)
+	controls.cells.display = elem.value;
+	myp5.stepForward(true);
+}
+
+
 
 //////////////////////////
 //    TOAST CONTROLS    //

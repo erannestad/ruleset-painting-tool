@@ -112,6 +112,15 @@
 							      	<input type="number" class="form-control form-control-sm" name="cellHeight" id="cellHeight" value="4">
 							    	</div>
 							    </div>
+							    <div class="mb-1 row g-3 align-items-baseline">
+							      <label for="cellHeight" class="form-label small col-4">Cell Display</label>
+							      <div class="col-auto">
+									    <select id="cell-display" style="width: 100%;" onchange="setCellDisplayMode(this)" class="form-control form-control-sm form-select-sm mb-2 " aria-label="Cell Display">
+												  <option value="stroke-horizontal" class="small" selected>Stroke (Horizontal)</option>
+												  <option value="stroke-vertical" class="small" >Stroke (Vertical)</option>
+											</select>	
+										</div>
+									</div>
 							    <button type="submit" class="btn btn-sm mt-2 btn-primary">Create Canvas</button>
 							  </form>
 							</div>

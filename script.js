@@ -32,7 +32,7 @@ var controls = {
     "width": 8,
     "height": 8, 
     "strokeWeight": "",
-    "display": "line", 
+    "display": "stroke-horizontal", 
   },
   "editor": {
     "brushes": {
@@ -156,6 +156,7 @@ let sketch = function(p) {
                 var hoverModifier = function(inputVal){return inputVal};
               }
 
+
               if (this.value > .5) {                  
                   // DISPLAY
                   if (controls.cells.display == 'rect') {
@@ -163,7 +164,7 @@ let sketch = function(p) {
                           if (controls.state.editor.viewMode == 'valueMode') { p.layer1.fill(0, 0, 30); }
                           if (controls.state.editor.viewMode == 'ruleMode') { p.layer1.fill(controls.rulesets[this.ruleset].hue, 230, 130); }                    
                           p.layer1.rect(this.x * p.w + p.padding, this.y * p.h + p.padding, p.w, p.h);
-                  } if (controls.cells.display == 'line') {
+                  } if ((controls.cells.display == 'stroke-vertical') || (controls.cells.display == 'stroke-horizontal') || (controls.cells.display == 'line')) { // added line as backward compatible
                           if (controls.state.editor.viewMode == 'ruleMode') { 
                             p.layer1.push();
                             p.layer1.noStroke();
@@ -177,7 +178,13 @@ let sketch = function(p) {
                           p.layer1.strokeCap(p.SQUARE);
                           if (controls.state.editor.viewMode == 'valueMode') { p.layer1.stroke(0, 0, hoverModifier(30)); }
                           if (controls.state.editor.viewMode == 'ruleMode') { p.layer1.stroke(controls.rulesets[this.ruleset].hue, 230, hoverModifier(130)); }  
-                          p.layer1.line(this.x * p.w + p.padding + p.floor(p.w/2), this.y * p.h + p.padding, this.x * p.w + p.padding + p.floor(p.w/2), this.y * p.h + p.padding + p.h);
+                          p.layer1.line(this.x * p.layer1.w + p.layer1.padding + p.layer1.floor(p.layer1.w/2), this.y * p.layer1.h + p.layer1.padding, this.x * p.layer1.w + p.layer1.padding + p.layer1.floor(p.layer1.w/2), this.y * p.layer1.h + p.layer1.padding + p.layer1.h);
+                          if ((controls.cells.display == 'stroke-vertical') || (controls.cells.display == 'line')) {  // if vertical line
+                            p.layer1.line(this.x * p.w + p.padding + p.floor(p.w/2), this.y * p.h + p.padding, this.x * p.w + p.padding + p.floor(p.w/2), this.y * p.h + p.padding + p.h);
+                          } 
+                          if (controls.cells.display == 'stroke-horizontal') { // if horizontal line 
+                            p.layer1.line(this.x * p.w + p.padding, this.y * p.h + p.padding + p.floor(p.h/2), this.x * p.w + p.padding + p.w, this.y * p.h + p.padding + p.floor(p.h/2));
+                          }   
                   }
               }
               
@@ -188,7 +195,7 @@ let sketch = function(p) {
                           if (controls.state.editor.viewMode == 'valueMode') { p.layer1.fill(0,0, hoverModifier(360)); }
                           if (controls.state.editor.viewMode == 'ruleMode') { p.layer1.fill(controls.rulesets[this.ruleset].hue, 180, hoverModifier(200)); }                    
                           p.layer1.rect(this.x * p.w + p.padding, this.y * p.h + p.padding, p.w, p.h);
-                  } if (controls.cells.display == 'line') {
+                  } if ((controls.cells.display == 'stroke-vertical') || (controls.cells.display == 'stroke-horizontal') || (controls.cells.display == 'line')) { // added line as backward compatible
                           if (controls.state.editor.viewMode == 'ruleMode') { 
                             p.layer1.push();
                             p.layer1.noStroke();
@@ -202,9 +209,67 @@ let sketch = function(p) {
                           p.layer1.strokeCap(p.SQUARE);
                           if (controls.state.editor.viewMode == 'valueMode') { p.layer1.stroke(controls.rulesets[this.ruleset].hue, 0, hoverModifier(360)); }
                           if (controls.state.editor.viewMode == 'ruleMode') { p.layer1.stroke(controls.rulesets[this.ruleset].hue, 180, hoverModifier(200)); }
-                          p.layer1.line(this.x * p.w + p.padding + p.floor(p.w/2), this.y * p.h + p.padding, this.x * p.w + p.padding + p.floor(p.w/2), this.y * p.h + p.padding + p.h);
+                          if ((controls.cells.display == 'stroke-vertical') || (controls.cells.display == 'line')) {  // if vertical line
+                            p.layer1.line(this.x * p.w + p.padding + p.floor(p.w/2), this.y * p.h + p.padding, this.x * p.w + p.padding + p.floor(p.w/2), this.y * p.h + p.padding + p.h);
+                          } 
+                          if (controls.cells.display == 'stroke-horizontal') { // if horizontal line 
+                            p.layer1.line(this.x * p.w + p.padding, this.y * p.h + p.padding + p.floor(p.h/2), this.x * p.w + p.padding + p.w, this.y * p.h + p.padding + p.floor(p.h/2));
+                          }                     
                   }              
               }
+
+
+
+              // if (this.value > .5) {                  
+              //     // DISPLAY
+              //     if (controls.cells.display == 'rect') {
+              //             p.layer1.noStroke();
+              //             if (controls.state.editor.viewMode == 'valueMode') { p.layer1.fill(0, 0, 30); }
+              //             if (controls.state.editor.viewMode == 'ruleMode') { p.layer1.fill(controls.rulesets[this.ruleset].hue, 230, 130); }                    
+              //             p.layer1.rect(this.x * p.w + p.padding, this.y * p.h + p.padding, p.w, p.h);
+              //     } if (controls.cells.display == 'line') {
+              //             if (controls.state.editor.viewMode == 'ruleMode') { 
+              //               p.layer1.push();
+              //               p.layer1.noStroke();
+              //               p.layer1.fill(controls.rulesets[this.ruleset].hue, 230, hoverModifier(230));                      
+              //               p.layer1.rect(this.x * p.w + p.padding, this.y * p.h + p.padding, p.w, p.h);
+              //               p.layer1.pop();
+              //             }
+              //             p.layer1.noFill();
+              //             if (controls.cells.strokeWeight) p.layer1.strokeWeight(controls.cells.strokeWeight);
+              //             else p.layer1.strokeWeight(controls.cells.width);
+              //             p.layer1.strokeCap(p.SQUARE);
+              //             if (controls.state.editor.viewMode == 'valueMode') { p.layer1.stroke(0, 0, hoverModifier(30)); }
+              //             if (controls.state.editor.viewMode == 'ruleMode') { p.layer1.stroke(controls.rulesets[this.ruleset].hue, 230, hoverModifier(130)); }  
+              //             p.layer1.line(this.x * p.w + p.padding + p.floor(p.w/2), this.y * p.h + p.padding, this.x * p.w + p.padding + p.floor(p.w/2), this.y * p.h + p.padding + p.h);
+
+              //     }
+              // }
+              
+              // else {
+              //     // DISPLAY
+              //     if (controls.cells.display == 'rect') {
+              //             p.layer1.noStroke();
+              //             if (controls.state.editor.viewMode == 'valueMode') { p.layer1.fill(0,0, hoverModifier(360)); }
+              //             if (controls.state.editor.viewMode == 'ruleMode') { p.layer1.fill(controls.rulesets[this.ruleset].hue, 180, hoverModifier(200)); }                    
+              //             p.layer1.rect(this.x * p.w + p.padding, this.y * p.h + p.padding, p.w, p.h);
+              //     } if (controls.cells.display == 'line') {
+              //             if (controls.state.editor.viewMode == 'ruleMode') { 
+              //               p.layer1.push();
+              //               p.layer1.noStroke();
+              //               p.layer1.fill(controls.rulesets[this.ruleset].hue, 180, hoverModifier(250));                    
+              //               p.layer1.rect(this.x * p.w + p.padding, this.y * p.h + p.padding, p.w, p.h);
+              //               p.layer1.pop();
+              //             }
+              //             p.layer1.noFill();
+              //             if (controls.cells.strokeWeight) p.layer1.strokeWeight(controls.cells.strokeWeight);
+              //             else p.layer1.strokeWeight(controls.cells.width);
+              //             p.layer1.strokeCap(p.SQUARE);
+              //             if (controls.state.editor.viewMode == 'valueMode') { p.layer1.stroke(controls.rulesets[this.ruleset].hue, 0, hoverModifier(360)); }
+              //             if (controls.state.editor.viewMode == 'ruleMode') { p.layer1.stroke(controls.rulesets[this.ruleset].hue, 180, hoverModifier(200)); }
+              //             p.layer1.line(this.x * p.w + p.padding + p.floor(p.w/2), this.y * p.h + p.padding, this.x * p.w + p.padding + p.floor(p.w/2), this.y * p.h + p.padding + p.h);
+              //     }              
+              // }
           }
         }
 
@@ -559,7 +624,7 @@ var createCanvas = function() {
                           if (controls.state.editor.viewMode == 'valueMode') { temp.fill(0, 0, 30); }
                           if (controls.state.editor.viewMode == 'ruleMode') { temp.fill(controls.rulesets[this.ruleset].hue, 230, 130); }                    
                           temp.rect(this.x * temp.w + temp.padding, this.y * temp.h + temp.padding, temp.w, temp.h);
-                  } if (controls.cells.display == 'line') {
+                  } if ((controls.cells.display == 'stroke-vertical') || (controls.cells.display == 'stroke-horizontal') || (controls.cells.display == 'line')) { // added line as backward compatible
                           if (controls.state.editor.viewMode == 'ruleMode') { 
                             temp.push();
                             temp.noStroke();
@@ -573,7 +638,12 @@ var createCanvas = function() {
                           temp.strokeCap(temp.SQUARE);
                           if (controls.state.editor.viewMode == 'valueMode') { temp.stroke(0, 0, 30); }
                           if (controls.state.editor.viewMode == 'ruleMode') { temp.stroke(controls.rulesets[this.ruleset].hue, 230, 130); }  
-                          temp.line(this.x * temp.w + temp.padding + temp.floor(temp.w/2), this.y * temp.h + temp.padding, this.x * temp.w + temp.padding + temp.floor(temp.w/2), this.y * temp.h + temp.padding + temp.h);
+                          if ((controls.cells.display == 'stroke-vertical') || (controls.cells.display == 'line')) {  // if vertical line
+                            temp.line(this.x * temp.w + temp.padding + temp.floor(temp.w/2), this.y * temp.h + temp.padding, this.x * temp.w + temp.padding + temp.floor(temp.w/2), this.y * temp.h + temp.padding + temp.h);
+                          } 
+                          if (controls.cells.display == 'stroke-horizontal') { // if horizontal line 
+                            temp.line(this.x * temp.w + temp.padding, this.y * temp.h + temp.padding + temp.floor(temp.h/2), this.x * temp.w + temp.padding + temp.w, this.y * temp.h + temp.padding + temp.floor(temp.h/2));
+                          }
                   }
               }
               
@@ -584,7 +654,7 @@ var createCanvas = function() {
                           if (controls.state.editor.viewMode == 'valueMode') { temp.fill(0,0, 360); }
                           if (controls.state.editor.viewMode == 'ruleMode') { temp.fill(controls.rulesets[this.ruleset].hue, 180, 200); }                    
                           temp.rect(this.x * temp.w + temp.padding, this.y * temp.h + temp.padding, temp.w, temp.h);
-                  } if (controls.cells.display == 'line') {
+                  } if ((controls.cells.display == 'stroke-vertical') || (controls.cells.display == 'stroke-horizontal') || (controls.cells.display == 'line')) { // added line as backward compatible
                           if (controls.state.editor.viewMode == 'ruleMode') { 
                             temp.push();
                             temp.noStroke();
@@ -598,7 +668,12 @@ var createCanvas = function() {
                           temp.strokeCap(temp.SQUARE);
                           if (controls.state.editor.viewMode == 'valueMode') { temp.stroke(controls.rulesets[this.ruleset].hue,0, 360); }
                           if (controls.state.editor.viewMode == 'ruleMode') { temp.stroke(controls.rulesets[this.ruleset].hue, 180, 200); }
-                          temp.line(this.x * temp.w + temp.padding + temp.floor(temp.w/2), this.y * temp.h + temp.padding, this.x * temp.w + temp.padding + temp.floor(temp.w/2), this.y * temp.h + temp.padding + temp.h);
+                          if ((controls.cells.display == 'stroke-vertical') || (controls.cells.display == 'line')) {  // if vertical line
+                            temp.line(this.x * temp.w + temp.padding + temp.floor(temp.w/2), this.y * temp.h + temp.padding, this.x * temp.w + temp.padding + temp.floor(temp.w/2), this.y * temp.h + temp.padding + temp.h);
+                          } 
+                          if (controls.cells.display == 'stroke-horizontal') { // if horizontal line 
+                            temp.line(this.x * temp.w + temp.padding, this.y * temp.h + temp.padding + temp.floor(temp.h/2), this.x * temp.w + temp.padding + temp.w, this.y * temp.h + temp.padding + temp.floor(temp.h/2));
+                          }                  
                   }              
               }
           }
