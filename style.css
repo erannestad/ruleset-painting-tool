@@ -123,6 +123,23 @@
 		text-decoration: none;
 	}
 
+	#record-controls.recording {
+		color: var(--RULE-tan-2);
+	    background-color: var(--RULE-orange-2);
+	    border-color: var(--bs-gray-dark);
+	}
+	#toggle-record {
+		height: 26px;
+		width: 26px;
+	}
+	#record-controls i:before {
+		font-size: 18px !important;
+	}
+
+	#record-button:hover {
+		background-color: none !important;
+	}
+
 	#play-controls > *, #reset-controls > *  {
 		background-color: var(--RULE-tan-3);
 		user-select: none;
@@ -447,6 +464,10 @@
 		width: 100% !important;
 		background-color: var(--RULE-tan-2) !important;
 	}*/
+
+	.hide-tooltip {
+/*		display: none;*/
+	}
 
 	.toast {
 		max-width: 260px;

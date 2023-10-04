@@ -17,7 +17,8 @@ var controls = {
     "workspace": {
       "tooltips": true,
       "loop" : false,
-      "fileType": ""
+      "fileType": "",
+      "record" : false
     }
   },
   "canvas": {
@@ -280,6 +281,8 @@ let sketch = function(p) {
 
         p.setup = function() {
             p.frameRate(10);
+            p.capturer = new CCapture({ format: 'png', framerate: 10 });
+            
             p.columns = p.floor(controls.canvas.width / p.w);
             p.rows = p.floor(controls.canvas.height / p.h);
 
@@ -327,11 +330,62 @@ let sketch = function(p) {
 
         p.draw = function() {
 
-          if (controls.state.workspace.loop == true) { p.stepForward(); }
+          /////////////////
+          // SCREEN CAPTURE
+          if (controls.state.workspace.record === true) { 
+              p.capturer.start(); 
+              controls.state.workspace.record = 'recording'
+              console.log('setting record setting to: recording')
+          }
+          if (controls.state.workspace.record === 'saving') {
+              p.capturer.stop();
+              p.capturer.save();
+              console.log('saving frames...')
+          }
+          if (controls.state.workspace.record === 'saving') {
+              controls.state.workspace.record = false
+              console.log('setting record setting to: false')
+
+          } 
+          p.capturer.capture(document.getElementById('defaultCanvas0'));
+          // SCREEN CAPTURE
+          /////////////////
+
+          if (controls.state.workspace.loop == true) { 
+            // p.capturer.capture(document.getElementById('defaultCanvas0'));
+            p.stepForward(); 
+          }
 
           if ((p.mouseX < p.width) && (p.mouseY < p.height)) {
             p.drawing(true);            
           }
+
+          
+          // USING CCapture https://peterbeshai.com/blog/2018-10-28-p5js-ccapture/
+
+
+            // if (p.startMillis == null) { p.startMillis = p.millis(); }
+            // var duration = 4000;
+            // var elapsed = p.millis() - p.startMillis;
+            // var t = p.map(elapsed, 0, duration, 0, 1);
+            // if (t > 1) {
+            //   console.log('saving frames...')
+            //   p.capturer.stop();
+            //   p.capturer.save();
+            // }
+
+            // if (p.frameCount === 1) { p.capturer.start(); }
+            // if (p.startMillis == null) { p.startMillis = p.millis(); }
+            // var duration = 4000;
+            // var elapsed = p.millis() - p.startMillis;
+            // var t = p.map(elapsed, 0, duration, 0, 1);
+            // if (t > 1) {
+            //   console.log('saving frames...')
+            //   p.capturer.stop();
+            //   p.capturer.save();
+            // }
+
+            // p.capturer.capture(document.getElementById('defaultCanvas0'));
 
         }
 
@@ -461,6 +515,7 @@ let sketch = function(p) {
           }
 
           p.image(p.layer1, 0, 0);
+
         }
 
         // The process of creating the new generation

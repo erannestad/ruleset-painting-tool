@@ -21,6 +21,7 @@
 
 	<script src="https://unpkg.com/imagesloaded@5/imagesloaded.pkgd.min.js"></script>
 
+	<script src="libraries/CCapture.all.min.js"></script>
 
     <!-- <script src="p5.sound.min.js"></script> -->
 </head>
@@ -70,6 +71,10 @@
 										</div>
 						      </div>'
 						      data-bs-placement="bottom"><i class="bi bi-skip-end"></i>Step</a>
+							</div>
+							<div id="record-controls" class="viewModeSelection top-bar-control d-flex align-items-center full-height border-end">
+									<input type="checkbox" class="btn-check" id="toggle-record" autocomplete="off" onclick="toggleRecord();" >
+									<label class="menu-item record-button viewModeSelection gap-2 px-3 p-2" for="toggle-record" data-bs-toggle="tooltip" data-bs-custom-class="keycode-container tooltip-keycode" data-bs-html="true" data-bs-title='<small>Record Frames</small>' data-bs-placement="bottom"><i class="bi bi-record-btn"></i></label>
 							</div>
 							<div id="reset-controls" class="top-bar-control d-flex align-items-center full-height border-end gap-2 px-3 p-2">
 									<div class="reset-container rounded-pill px-2 py-1 step menu-item highlight-focus" onclick="resetCanvas();" href="#" data-bs-toggle="tooltip" data-bs-custom-class="keycode-container tooltip-keycode" data-bs-html="true" data-bs-title='

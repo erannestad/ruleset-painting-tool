@@ -43,9 +43,39 @@ document.addEventListener('keydown', function (evt) {
       evt.preventDefault();
       playContainer = document.querySelector('#play-controls .play-container');
       playContainer.click();
+  } if ((isShift) && (evt.keyCode === 82)) { // SPACE + r
+  	  if ( document.activeElement.classList.contains('blacklist-spacebar') ) return console.log('default spacebar')  // check if active element prevents custom spacebar function
+      evt.preventDefault();
+    	document.querySelector('#toggle-record').click()
   }
+
+
+
 });
 
+
+// RECORDING //
+toggleRecord = function() {
+			recordButton = document.querySelector('#record-controls label')
+			recordButtonIcon = document.querySelector('#toggle-record i')
+			recordContainer = document.querySelector('#record-controls')
+			console.log('TOGGLE RECORD')
+      if ((controls.state.workspace.record === false) || !(controls.state.workspace.record)) {
+      	console.log('setting record setting to: true')
+      	controls.state.workspace.record = true;
+      	recordContainer.classList.add('recording')
+      	recordButton.classList.add('active')
+      	recordButtonIcon.classList.remove('bi-record-btn')
+      	recordButtonIcon.classList.remove('bi-record-btn-fill')
+      } else {
+      	console.log('setting record setting to: saving ')
+      	controls.state.workspace.record = 'saving';
+      	recordContainer.classList.remove('recording')
+      	recordButton.classList.remove('active')
+      	recordButtonIcon.classList.remove('bi-record-btn-fill')
+      	recordButtonIcon.classList.remove('bi-record-btn')
+      }
+}
 
 
 ////////////////////////////////
