@@ -140,6 +140,10 @@
 		background-color: none !important;
 	}
 
+	.record-button {
+	    color: var(--RULE-tan-5);
+	}
+
 	#play-controls > *, #reset-controls > *  {
 		background-color: var(--RULE-tan-3);
 		user-select: none;
